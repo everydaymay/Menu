@@ -19,11 +19,10 @@
         td { border-bottom: 0.5px solid #eee; padding: 2.2px 2px; }
         .box { width: 12px; height: 12px; border: 1px solid #000; display: inline-block; vertical-align: middle; margin-right: 3px; }
         
-        /* 修正後的對齊列樣式 */
-        .price-align-header { display: flex; align-items: center; padding: 2px 2px 2px 5px; border-bottom: 1px solid #000; background: #f2f2f2; font-weight: bold; }
-        .category-name { flex-grow: 1; font-size: 11px; }
+        /* 徹底拿掉左邊文字，只留右邊對齊標籤 */
+        .price-align-header { display: flex; justify-content: flex-end; padding: 4px 2px; border-bottom: 1px solid #000; background: #f2f2f2; font-weight: bold; }
         .label-group { display: flex; }
-        .cell-width { width: 38px; text-align: center; font-size: 9px; }
+        .cell-width { width: 38px; text-align: center; font-size: 10px; }
         
         .price-align-row { display: flex; justify-content: flex-end; align-items: center; }
         .box-cell { width: 38px; text-align: center; white-space: nowrap; }
@@ -43,8 +42,8 @@
     <div class="main-grid">
         <div class="col">
             <div class="section">
+                <div class="section-title">漢堡 / 吐司 / 軟法 / 總匯</div>
                 <div class="price-align-header">
-                    <div class="category-name">漢堡/吐司/軟法/總匯</div>
                     <div class="label-group">
                         <div class="cell-width">吐司</div><div class="cell-width">漢堡</div><div class="cell-width">軟法</div><div class="cell-width">總匯</div>
                     </div>
@@ -68,7 +67,6 @@
             <div class="section">
                 <div class="section-title">果醬系列 (<span class="box"></span>加厚果醬+5元)</div>
                 <div class="price-align-header">
-                    <div class="category-name">薄片/厚片/乳酪餅</div>
                     <div class="label-group">
                         <div class="cell-width">薄片</div><div class="cell-width">厚片</div><div class="cell-width">乳酪</div>
                     </div>
@@ -135,7 +133,6 @@
             <div class="section">
                 <div class="section-title">飲料系列 (<span class="box"></span>冰 <span class="box"></span>溫 <span class="box"></span>熱)</div>
                 <div class="price-align-header">
-                    <div class="category-name">飲料種類</div>
                     <div class="label-group">
                         <div class="cell-width">中杯</div><div class="cell-width">大杯</div>
                     </div>
