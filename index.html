@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>美天早餐 - 線上菜單</title>
+    <style>
+        :root {
+            --primary: #5d4037;
+            --accent: #e67e22;
+            --bg: #fffbf2;
+        }
+        body { font-family: "Microsoft JhengHei", sans-serif; background: var(--bg); margin: 0; padding: 15px; color: #333; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: var(--primary); margin-bottom: 5px; }
+        .info { text-align: center; font-size: 0.9rem; margin-bottom: 20px; color: #666; }
+        
+        /* 區塊樣式 */
+        .category-block { margin-bottom: 30px; }
+        .category-title { 
+            background: var(--primary); color: white; padding: 8px 15px; 
+            border-radius: 5px; font-size: 1.2rem; margin-bottom: 15px;
+            display: flex; justify-content: space-between;
+        }
+        
+        /* 表格樣式 */
+        table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+        th { text-align: left; color: #888; font-size: 0.8rem; padding-bottom: 5px; }
+        td { padding: 10px 0; border-bottom: 1px solid #eee; }
+        .item-name { font-weight: bold; width: 40%; }
+        .price-tag { color: var(--accent); font-weight: bold; text-align: right; }
+        
+        .note { font-size: 0.8rem; color: #e74c3c; margin-top: 5px; }
+        @media (max-width: 480px) { .item-name { width: 50%; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>美天早餐 🥪</h1>
+    <div class="info">
+        📍 新北市土城區延吉街53號 | 📞 02-2270-3918<br>
+        🚫 星期日公休
+    </div>
+
+    <div id="menu-content">
+        </div>
+
+    <footer style="text-align: center; padding: 20px; color: #999; font-size: 0.8rem;">
+        © 美天早餐 - 價格如有變動以現場為準
+    </footer>
+</div>
+
+<script>
+    // 💡 未來你只需要改這裡的資料！
+    const menuData = [
+        {
+            category: "蛋餅系列",
+            note: "可加醬油/辣椒醬油",
+            items: [
+                { name: "原味蛋餅", price: 30 },
+                { name: "玉米蛋餅", price: 35 },
+                { name: "九層塔蛋餅", price: 35 },
+                { name: "起士蛋餅", price: 35 },
+                { name: "肉鬆蛋餅", price: 35 },
+                { name: "鮪魚蛋餅", price: 40 }
+            ]
+        },
+        {
+            category: "漢堡/吐司系列",
+            note: "吐司/漢堡均加蛋。不加蛋折5元",
+            items: [
+                { name: "煎蛋 漢堡/吐司", price: "30/35" },
+                { name: "培根 漢堡/吐司", price: "35/40" },
+                { name: "薯餅 漢堡/吐司", price: "40/45" },
+                { name: "里肌豬排 漢堡/吐司", price: "45/50" },
+                { name: "卡拉雞腿(辣) 漢堡/吐司", price: "65/70" }
+            ]
+        },
+        {
+            category: "飲料",
+            note: "中杯 / 大杯",
+            items: [
+                { name: "紅茶 (冰/溫/熱)", price: "15/20" },
+                { name: "奶茶 (冰/溫/熱)", price: "20/25" },
+                { name: "豆漿 (冰/溫/熱)", price: "20" },
+                { name: "美式咖啡 (冰/熱)", price: "40/50" },
+                { name: "鮮奶茶 (冰/溫/熱)", price: "30/35" }
+            ]
+        },
+        {
+            category: "套餐系列",
+            note: "套餐可折抵10元換飲料",
+            items: [
+                { name: "1號餐 (鐵板麵+豬排+荷包蛋+中紅)", price: 85 },
+                { name: "2號餐 (吐司沙拉+法蘭克+熱狗+散蛋+中紅)", price: 65 },
+                { name: "兒童餐 (巧克力吐司+雞塊2塊)", price: 60 }
+            ]
+        }
+    ];
+
+    // 渲染邏輯
+    const menuContent = document.getElementById('menu-content');
+    
+    menuData.forEach(section => {
+        let html = `
+            <div class="category-block">
+                <div class="category-title">
+                    <span>${section.category}</span>
+                </div>
+                ${section.note ? `<p class="note">* ${section.note}</p>` : ''}
+                <table>
+                    ${section.items.map(item => `
+                        <tr>
+                            <td class="item-name">${item.name}</td>
+                            <td class="price-tag">$${item.price}</td>
+                        </tr>
+                    `).join('')}
+                </table>
+            </div>
+        `;
+        menuContent.innerHTML += html;
+    });
+</script>
+
+</body>
+</html>
