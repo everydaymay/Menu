@@ -3,125 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>美天早餐 - 線上菜單</title>
+    <title>美天早餐 - 點菜單</title>
     <style>
-        :root {
-            --primary: #5d4037;
-            --accent: #e67e22;
-            --bg: #fffbf2;
+        :root { --primary: #333; --accent: #000; --bg: #fff; }
+        body { font-family: "Microsoft JhengHei", sans-serif; background: #f0f0f0; margin: 0; padding: 0; }
+        
+        /* A4 紙張模擬與列印設定 */
+        .a4-page { 
+            width: 210mm; min-height: 297mm; 
+            margin: 10px auto; background: white; 
+            padding: 10mm; box-sizing: border-box;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
         }
-        body { font-family: "Microsoft JhengHei", sans-serif; background: var(--bg); margin: 0; padding: 15px; color: #333; }
-        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: var(--primary); margin-bottom: 5px; }
-        .info { text-align: center; font-size: 0.9rem; margin-bottom: 20px; color: #666; }
+
+        header { text-align: center; border-bottom: 2px solid #000; margin-bottom: 10px; padding-bottom: 5px; }
+        h1 { margin: 0; font-size: 24px; }
+        .shop-info { font-size: 14px; margin: 5px 0; }
+
+        /* 雙欄排版 */
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         
-        /* 區塊樣式 */
-        .category-block { margin-bottom: 30px; }
-        .category-title { 
-            background: var(--primary); color: white; padding: 8px 15px; 
-            border-radius: 5px; font-size: 1.2rem; margin-bottom: 15px;
-            display: flex; justify-content: space-between;
+        .category-block { border: 1px solid #ccc; padding: 8px; border-radius: 5px; margin-bottom: 10px; }
+        .category-title { background: #eee; font-weight: bold; padding: 3px 8px; border-bottom: 1px solid #000; margin-bottom: 5px; font-size: 16px; }
+        .note { font-size: 11px; color: #555; margin-bottom: 5px; border-bottom: 1px dashed #eee; padding-bottom: 2px; }
+
+        .item { display: flex; align-items: center; justify-content: space-between; padding: 3px 0; font-size: 13px; border-bottom: 1px solid #f9f9f9; }
+        .item-left { display: flex; align-items: center; }
+        .checkbox { width: 14px; height: 14px; border: 1px solid #000; margin-right: 6px; display: inline-block; cursor: pointer; }
+        .price { font-weight: bold; width: 55px; text-align: right; }
+
+        /* 列印優化 */
+        @media print {
+            body { background: white; }
+            .a4-page { width: 100%; margin: 0; box-shadow: none; padding: 5mm; }
+            button { display: none; }
         }
-        
-        /* 表格樣式 */
-        table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
-        th { text-align: left; color: #888; font-size: 0.8rem; padding-bottom: 5px; }
-        td { padding: 10px 0; border-bottom: 1px solid #eee; }
-        .item-name { font-weight: bold; width: 40%; }
-        .price-tag { color: var(--accent); font-weight: bold; text-align: right; }
-        
-        .note { font-size: 0.8rem; color: #e74c3c; margin-top: 5px; }
-        @media (max-width: 480px) { .item-name { width: 50%; } }
+
+        /* 手機版適應 */
+        @media (max-width: 600px) {
+            .a4-page { width: 100%; height: auto; padding: 15px; }
+            .menu-grid { grid-template-columns: 1fr; }
+        }
+
+        .print-btn { 
+            position: fixed; right: 20px; bottom: 20px; 
+            padding: 10px 20px; background: #e67e22; color: white; 
+            border: none; border-radius: 50px; cursor: pointer; font-size: 16px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>美天早餐 🥪</h1>
-    <div class="info">
-        📍 新北市土城區延吉街53號 | 📞 02-2270-3918<br>
-        🚫 星期日公休
-    </div>
+<button class="print-btn" onclick="window.print()">🖨️ 直接列印菜單</button>
 
-    <div id="menu-content">
+<div class="a4-page">
+    <header>
+        <h1>美天早餐 點菜單</h1>
+        <div class="shop-info">📞 02-2270-3918 | 📍 土城區延吉街53號 | 桌號：_______</div>
+    </header>
+
+    <div class="menu-grid" id="menu-container">
         </div>
 
-    <footer style="text-align: center; padding: 20px; color: #999; font-size: 0.8rem;">
-        © 美天早餐 - 價格如有變動以現場為準
+    <footer style="text-align: center; font-size: 10px; margin-top: 10px; color: #666;">
+        * 現點現做請稍候 * 價格如有變動以現場為準 *
     </footer>
 </div>
 
 <script>
-    // 💡 未來你只需要改這裡的資料！
-    const menuData = [
-        {
-            category: "蛋餅系列",
-            note: "可加醬油/辣椒醬油",
-            items: [
-                { name: "原味蛋餅", price: 30 },
-                { name: "玉米蛋餅", price: 35 },
-                { name: "九層塔蛋餅", price: 35 },
-                { name: "起士蛋餅", price: 35 },
-                { name: "肉鬆蛋餅", price: 35 },
-                { name: "鮪魚蛋餅", price: 40 }
-            ]
-        },
-        {
-            category: "漢堡/吐司系列",
-            note: "吐司/漢堡均加蛋。不加蛋折5元",
-            items: [
-                { name: "煎蛋 漢堡/吐司", price: "30/35" },
-                { name: "培根 漢堡/吐司", price: "35/40" },
-                { name: "薯餅 漢堡/吐司", price: "40/45" },
-                { name: "里肌豬排 漢堡/吐司", price: "45/50" },
-                { name: "卡拉雞腿(辣) 漢堡/吐司", price: "65/70" }
-            ]
-        },
-        {
-            category: "飲料",
-            note: "中杯 / 大杯",
-            items: [
-                { name: "紅茶 (冰/溫/熱)", price: "15/20" },
-                { name: "奶茶 (冰/溫/熱)", price: "20/25" },
-                { name: "豆漿 (冰/溫/熱)", price: "20" },
-                { name: "美式咖啡 (冰/熱)", price: "40/50" },
-                { name: "鮮奶茶 (冰/溫/熱)", price: "30/35" }
-            ]
-        },
-        {
-            category: "套餐系列",
-            note: "套餐可折抵10元換飲料",
-            items: [
-                { name: "1號餐 (鐵板麵+豬排+荷包蛋+中紅)", price: 85 },
-                { name: "2號餐 (吐司沙拉+法蘭克+熱狗+散蛋+中紅)", price: 65 },
-                { name: "兒童餐 (巧克力吐司+雞塊2塊)", price: 60 }
-            ]
-        }
-    ];
+const menuData = [
+    { cat: "漢堡/吐司(均加蛋)", note: "不加蛋折5元 / 換軟法+15 / 總匯+20", items: [
+        { n: "煎蛋", p: "30/35" }, { n: "肉鬆/火腿", p: "35/40" }, { n: "培根/起士", p: "35/40" },
+        { n: "薯餅/肉排", p: "40/45" }, { n: "鮪魚/香雞排", p: "40/45" }, { n: "里肌豬排", p: "45/50" },
+        { n: "鮮蝦/燻雞", p: "45/50" }, { n: "藍帶豬排", p: "60/65" }, { n: "卡拉雞腿(辣)", p: "65/70" }
+    ]},
+    { cat: "蛋餅系列", note: "可加 醬油 / 辣椒醬油", items: [
+        { n: "原味蛋餅", p: "30" }, { n: "玉米/九層塔/起士", p: "35" }, { n: "肉鬆/火腿/培根", p: "35" },
+        { n: "薯餅/鮪魚/肉排", p: "40" }, { n: "香雞排/豬排/鮮蝦", p: "45" }, { n: "高麗菜培根", p: "50" },
+        { n: "明太子鱈魚", p: "70" }
+    ]},
+    { cat: "中式輕食/乳酪餅", items: [
+        { n: "荷包蛋/蔥蛋", p: "15/25" }, { n: "玉米蛋/九層塔蛋", p: "25" }, { n: "蔥抓餅/煎餃", p: "30/35" },
+        { n: "蘿蔔糕(2片)", p: "35" }, { n: "乳酪餅(含蛋)", p: "40起" }, { n: "果醬吐司(厚片)", p: "15/30" }
+    ]},
+    { cat: "飲料 (中/大)", items: [
+        { n: "紅茶/豆漿", p: "15/20" }, { n: "奶茶/無糖豆漿", p: "20/25" }, { n: "鮮奶茶/奶咖", p: "30/35" },
+        { n: "美式咖啡", p: "40/50" }, { n: "柳橙汁/檸檬紅", p: "25/30" }
+    ]},
+    { cat: "套餐系列 (附中紅)", items: [
+        { n: "1號餐(鐵板麵+豬排+蛋)", p: "85" }, { n: "2號餐(吐司沙拉+法蘭克+蛋)", p: "65" },
+        { n: "3號餐(蘿蔔糕+煎餃+原味蛋餅)", p: "70" }, { n: "兒童餐(巧吐+雞塊2)", p: "60" }
+    ]},
+    { cat: "點心/小點", items: [
+        { n: "培根/火腿/熱狗", p: "15/20" }, { n: "薯餅/肉排", p: "20/30" }, { n: "雞塊(5塊)/小雞球", p: "40" },
+        { n: "薯條/德式香腸", p: "40/50" }, { n: "卡拉雞腿/藍帶豬排", p: "50" }
+    ]}
+];
 
-    // 渲染邏輯
-    const menuContent = document.getElementById('menu-content');
-    
-    menuData.forEach(section => {
-        let html = `
-            <div class="category-block">
-                <div class="category-title">
-                    <span>${section.category}</span>
-                </div>
-                ${section.note ? `<p class="note">* ${section.note}</p>` : ''}
-                <table>
-                    ${section.items.map(item => `
-                        <tr>
-                            <td class="item-name">${item.name}</td>
-                            <td class="price-tag">$${item.price}</td>
-                        </tr>
-                    `).join('')}
-                </table>
-            </div>
-        `;
-        menuContent.innerHTML += html;
+const container = document.getElementById('menu-container');
+menuData.forEach(c => {
+    let html = `<div class="category-block"><div class="category-title">${c.cat}</div>`;
+    if(c.note) html += `<div class="note">* ${c.note}</div>`;
+    c.items.forEach(i => {
+        html += `<div class="item">
+                    <div class="item-left"><div class="checkbox"></div>${i.n}</div>
+                    <div class="price">$${i.p}</div>
+                 </div>`;
     });
+    html += `</div>`;
+    container.innerHTML += html;
+});
 </script>
-
 </body>
 </html>
