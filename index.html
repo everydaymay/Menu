@@ -19,10 +19,13 @@
         td { border-bottom: 0.5px solid #eee; padding: 2.2px 2px; }
         .box { width: 12px; height: 12px; border: 1px solid #000; display: inline-block; vertical-align: middle; margin-right: 3px; }
         
-        /* 標籤對齊邏輯：直接作為首行 */
-        .price-align-header { display: flex; justify-content: flex-end; padding-right: 2px; padding-bottom: 2px; border-bottom: 1px solid #000; background: #f2f2f2; }
+        /* 修正後的對齊列樣式 */
+        .price-align-header { display: flex; align-items: center; padding: 2px 2px 2px 5px; border-bottom: 1px solid #000; background: #f2f2f2; font-weight: bold; }
+        .category-name { flex-grow: 1; font-size: 11px; }
+        .label-group { display: flex; }
+        .cell-width { width: 38px; text-align: center; font-size: 9px; }
+        
         .price-align-row { display: flex; justify-content: flex-end; align-items: center; }
-        .cell-width { width: 38px; text-align: center; font-size: 9px; font-weight: bold; }
         .box-cell { width: 38px; text-align: center; white-space: nowrap; }
         
         footer { border-top: 2px solid #000; padding-top: 8px; margin-top: 10px; font-size: 12px; text-align: center; font-weight: bold; line-height: 1.5; }
@@ -41,18 +44,20 @@
         <div class="col">
             <div class="section">
                 <div class="price-align-header">
-                    <div style="flex-grow:1; text-align:left; padding-left:5px; font-size:11px; font-weight:bold;">漢堡/吐司/軟法/總匯</div>
-                    <div class="cell-width">吐司</div><div class="cell-width">漢堡</div><div class="cell-width">軟法</div><div class="cell-width">總匯</div>
+                    <div class="category-name">漢堡/吐司/軟法/總匯</div>
+                    <div class="label-group">
+                        <div class="cell-width">吐司</div><div class="cell-width">漢堡</div><div class="cell-width">軟法</div><div class="cell-width">總匯</div>
+                    </div>
                 </div>
                 <table>
                     <script>
-                        const burgers = [
+                        const b = [
                             ["煎蛋",30,35,50,50],["肉鬆",35,40,55,55],["火腿",35,40,55,55],["培根",35,40,55,55],
                             ["起士",35,40,55,55],["薯餅",40,45,60,60],["肉排",40,45,60,60],["鮪魚",40,45,60,60],
                             ["香雞排",45,50,65,65],["里肌豬排",45,50,65,65],["鮮蝦",45,50,65,65],["燻雞",45,50,65,65],
                             ["藍帶豬排",60,65,80,80],["雞柳",60,65,75,75],["明太鱈魚",70,75,90,90],["菲力雞排",70,75,90,90],["卡拉雞腿(辣)",65,70,85,85]
                         ];
-                        burgers.forEach(i => { 
+                        b.forEach(i => { 
                             document.write(`<tr><td>${i[0]}</td><td class="price-align-row">` + 
                             i.slice(1).map(p => `<div class="box-cell"><span class="box"></span>${p}</div>`).join('') + 
                             `</td></tr>`); 
@@ -63,8 +68,10 @@
             <div class="section">
                 <div class="section-title">果醬系列 (<span class="box"></span>加厚果醬+5元)</div>
                 <div class="price-align-header">
-                    <div style="flex-grow:1;"></div>
-                    <div class="cell-width">薄片</div><div class="cell-width">厚片</div><div class="cell-width">乳酪</div>
+                    <div class="category-name">薄片/厚片/乳酪餅</div>
+                    <div class="label-group">
+                        <div class="cell-width">薄片</div><div class="cell-width">厚片</div><div class="cell-width">乳酪</div>
+                    </div>
                 </div>
                 <table>
                     <script>
@@ -128,8 +135,10 @@
             <div class="section">
                 <div class="section-title">飲料系列 (<span class="box"></span>冰 <span class="box"></span>溫 <span class="box"></span>熱)</div>
                 <div class="price-align-header">
-                    <div style="flex-grow:1;"></div>
-                    <div class="cell-width">中杯</div><div class="cell-width">大杯</div>
+                    <div class="category-name">飲料種類</div>
+                    <div class="label-group">
+                        <div class="cell-width">中杯</div><div class="cell-width">大杯</div>
+                    </div>
                 </div>
                 <table>
                     <script>
