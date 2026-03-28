@@ -2,10 +2,8 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>美天早餐 - 頂級萬能菜單設計師</title>
-    <style id="font-style">
-        body { font-family: "Microsoft JhengHei", sans-serif; }
-    </style>
+    <title>美天早餐 - 旗艦精省版編輯器</title>
+    <style id="font-style">body { font-family: "Microsoft JhengHei", sans-serif; }</style>
     <style>
         @media print {
             .no-print, .controls, .toolbar { display: none !important; }
@@ -14,73 +12,65 @@
             .section { page-break-inside: avoid; border: 1px solid #000 !important; }
         }
 
-        body { background: #dfe6e9; margin: 0; padding: 20px; color: #000; transition: all 0.3s; }
-        
-        .toolbar { background: #2d3436; color: #fff; padding: 12px; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; gap: 8px; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); flex-wrap: wrap; }
+        body { background: #dfe6e9; margin: 0; padding: 20px; color: #000; transition: all 0.2s; }
+        .toolbar { background: #2d3436; color: #fff; padding: 12px; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; gap: 8px; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
         .btn { padding: 8px 15px; cursor: pointer; border: none; border-radius: 4px; font-weight: bold; }
         .btn-save { background: #0984e3; color: white; }
         .btn-print { background: #00b894; color: white; }
-        .btn-font { background: #f39c12; color: white; }
         .btn-add-sec { background: #6c5ce7; color: white; }
         .btn-add-custom { background: #f1c40f; color: #000; }
 
-        .a4-container { width: 210mm; min-height: 297mm; background: #fff; margin: 60px auto; padding: 8mm 10mm; box-sizing: border-box; border: 1px solid #ccc; box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: flex; flex-direction: column; }
+        .a4-container { width: 210mm; min-height: 297mm; background: #fff; margin: 60px auto; padding: 5mm 8mm; box-sizing: border-box; border: 1px solid #ccc; box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: flex; flex-direction: column; }
         
-        header { border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 10px; }
-        .header-top { display: flex; justify-content: space-between; align-items: flex-end; }
-        .shop-title { font-size: 24px; font-weight: bold; }
-        
-        .header-info-bar { display: flex; justify-content: space-between; align-items: center; border: 1px solid #000; margin-top: 5px; padding: 5px 10px; font-size: 14px; font-weight: bold; }
+        header { border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 5px; }
+        .header-info-bar { display: flex; justify-content: space-between; border: 1px solid #000; padding: 3px 10px; font-weight: bold; font-size: 13px; }
         .underline { border-bottom: 1px solid #000; min-width: 40px; display: inline-block; text-align: center; margin: 0 5px; outline: none; }
 
-        .main-grid { display: grid; grid-template-columns: 1.15fr 0.9fr 0.95fr; gap: 12px; flex-grow: 1; margin-top: 10px; }
-        .col { display: flex; flex-direction: column; gap: 10px; min-height: 100px; border: 1px dashed #eee; }
+        .main-grid { display: grid; grid-template-columns: 1.15fr 0.9fr 0.95fr; gap: 10px; flex-grow: 1; }
+        .col { display: flex; flex-direction: column; gap: 8px; min-height: 100px; }
 
-        .section { border: 1px solid #000; margin-bottom: 12px; border-radius: 2px; overflow: hidden; position: relative; background: #fff; }
-        .section-title { background: #000; color: #fff; padding: 6px; font-weight: bold; text-align: center; font-size: 14px; }
+        .section { border: 1px solid #000; border-radius: 2px; overflow: hidden; position: relative; background: #fff; }
+        .section-title { background: #000; color: #fff; padding: 4px; font-weight: bold; text-align: center; font-size: 13px; }
         
-        .price-align-header { display: flex; align-items: center; padding: 3px 5px; border-bottom: 1px solid #000; background: #f2f2f2; font-weight: bold; }
-        .category-name { flex-grow: 1; font-size: 11px; }
-        .label-group { display: flex; }
-        .cell-width { width: 38px; text-align: center; font-size: 10px; }
+        .price-align-header { display: flex; align-items: center; padding: 2px 5px; border-bottom: 1px solid #000; background-color: #f2f2f2 !important; font-weight: bold; }
+        .category-name { flex-grow: 1; font-size: 10px; }
+        .cell-width { width: 36px; text-align: center; font-size: 9px; }
 
-        .controls { background: #eee; padding: 4px; display: flex; gap: 2px; border-bottom: 1px solid #ccc; flex-wrap: wrap; justify-content: center; }
-        .btn-edit { font-size: 10px; padding: 2px 4px; cursor: pointer; border: 1px solid #ccc; background: #fff; border-radius: 3px; }
-        .btn-move { background: #636e72; color: white; }
-        .btn-bold { background: #2d3436; color: white; font-weight: 900; }
+        .controls { background: #eee; padding: 2px; display: flex; gap: 2px; border-bottom: 1px solid #ccc; flex-wrap: wrap; justify-content: center; }
+        .btn-move { background: #636e72; color: white; font-size: 10px; padding: 1px 3px; border: none; cursor: pointer; border-radius: 2px; }
+        .btn-edit { font-size: 10px; padding: 1px 4px; cursor: pointer; border: 1px solid #ccc; background: #fff; border-radius: 2px; }
 
-        table { width: 100%; border-collapse: collapse; font-size: 11px; }
-        td { border-bottom: 1px solid #f0f0f0; padding: 5px 3px; vertical-align: middle; }
-        .box-square { width: 12px; height: 12px; border: 1px solid #000; display: inline-block; vertical-align: middle; margin-right: 2px; }
+        table { width: 100%; border-collapse: collapse; font-size: 10px; }
+        td { border-bottom: 1px solid #f0f0f0; padding: 3px 2px; vertical-align: middle; }
+        .box-square { width: 11px; height: 11px; border: 1px solid #000; display: inline-block; vertical-align: middle; margin-right: 1px; }
         .price-align-row { display: flex; justify-content: flex-end; align-items: center; }
-        .box-cell { width: 38px; text-align: center; }
+        .box-cell { width: 36px; text-align: center; }
 
-        /* 黃色客製化框 */
-        .custom-box { background: #fff9c4; border: 2px solid #000; border-radius: 12px; padding: 10px; }
-        .custom-title { color: #d32f2f; font-weight: bold; text-align: center; margin-bottom: 5px; font-size: 14px; }
-        .custom-table { width: 100%; border: none; border-collapse: collapse; }
-        .custom-table td { border: none !important; padding: 4px; vertical-align: top; font-size: 11px; }
-        .option-item { margin-bottom: 4px; white-space: nowrap; display: block; }
+        /* 黃色客製框 - 空間壓縮版 */
+        .custom-box { background: #fff9c4 !important; border: 1.5px solid #000; border-radius: 8px; padding: 5px 8px; }
+        .custom-title { color: #d32f2f; font-weight: bold; text-align: center; font-size: 12px; margin-bottom: 2px; border-bottom: 1px dashed #d32f2f; }
+        .custom-content { display: flex; flex-direction: column; gap: 3px; }
+        .custom-row { display: flex; flex-wrap: wrap; align-items: center; font-size: 10px; gap: 5px; }
+        .option-item { display: inline-flex; align-items: center; white-space: nowrap; margin-right: 2px; }
 
-        footer { border-top: 2px solid #000; padding-top: 10px; margin-top: auto; font-size: 12px; text-align: center; font-weight: bold; }
-        .del-x { color: red; border: none; background: none; cursor: pointer; font-weight: bold; margin-right: 4px; font-size: 14px; }
+        footer { border-top: 2px solid #000; padding-top: 5px; margin-top: auto; font-size: 11px; text-align: center; font-weight: bold; }
+        .del-x { color: red; border: none; background: none; cursor: pointer; font-weight: bold; margin-right: 2px; font-size: 12px; }
     </style>
 </head>
 <body>
 
 <div class="toolbar no-print">
-    <button class="btn btn-font" onclick="cycleFont()">🔤 切換字體</button>
-    <button class="btn btn-add-sec" onclick="addNewSection()">➕ 新增類別</button>
-    <button class="btn btn-add-custom" onclick="addYellowBox()">➕ 加黃色客製框</button>
-    <button class="btn btn-save" onclick="saveMenu()">💾 儲存菜單</button>
+    <button class="btn btn-add-sec" onclick="addNewSection()">➕ 類別</button>
+    <button class="btn btn-add-custom" onclick="addYellowBox()">➕ 黃色框</button>
+    <button class="btn btn-save" onclick="saveMenu()">💾 儲存</button>
     <button class="btn btn-print" onclick="window.print()">🖨️ 列印</button>
 </div>
 
 <div class="a4-container" id="menu-content">
     <header>
-        <div class="header-top">
-            <div class="shop-title" contenteditable="true">美天早餐 點菜單</div>
-            <div style="font-size:11px;" contenteditable="true">📞 02-2270-3918 | 📍 土城區延吉街53號</div>
+        <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+            <div style="font-size:22px; font-weight:bold;" contenteditable="true">美天早餐 點菜單</div>
+            <div style="font-size:10px;" contenteditable="true">📞 02-2270-3918 | 📍 土城區延吉街53號</div>
         </div>
         <div class="header-info-bar">
             <div>內用桌號：<span class="underline" contenteditable="true"></span></div>
@@ -90,69 +80,58 @@
     </header>
 
     <div class="main-grid" id="main-grid">
-        <div class="col" id="col-0"></div>
+        <div class="col" id="col-0">
+            <div class="section">
+                <div class="controls no-print">
+                    <button class="btn-move" onclick="move(this,'up')">⬆️</button><button class="btn-move" onclick="move(this,'down')">⬇️</button>
+                    <button class="btn-move" onclick="move(this,'left')">⬅️</button><button class="btn-move" onclick="move(this,'right')">➡️</button>
+                    <button class="btn-edit" onclick="pickColor(this,'.section-title')">🎨色</button>
+                    <button class="btn-edit" onclick="changeFontSize(this, 1)">➕大</button><button class="btn-edit" onclick="changeFontSize(this, -1)">➖小</button>
+                    <button class="btn-edit" onclick="addRow(this,4)">➕4價</button>
+                    <button class="btn-edit" style="color:red" onclick="this.closest('.section').remove()">✕</button>
+                </div>
+                <div class="section-title" contenteditable="true">漢堡 / 吐司 / 軟法 / 總匯</div>
+                <div class="price-align-header"><div class="category-name">品項名稱</div><div class="label-group"><div class="cell-width">吐司</div><div class="cell-width">漢堡</div><div class="cell-width">軟法</div><div class="cell-width">總匯</div></div></div>
+                <table><tbody><tr><td><span contenteditable="true">煎蛋</span></td><td class="price-align-row"><div class="box-cell"><span class="box-square"></span>30</div><div class="box-cell"><span class="box-square"></span>35</div><div class="box-cell"><span class="box-square"></span>50</div><div class="box-cell"><span class="box-square"></span>50</div></td></tr></tbody></table>
+            </div>
+        </div>
         <div class="col" id="col-1"></div>
         <div class="col" id="col-2">
             <div class="section custom-box">
                 <div class="controls no-print">
-                    <button class="btn-edit btn-move" onclick="move(this,'up')">⬆️</button><button class="btn-edit btn-move" onclick="move(this,'down')">⬇️</button>
-                    <button class="btn-edit btn-move" onclick="move(this,'left')">⬅️</button><button class="btn-edit btn-move" onclick="move(this,'right')">➡️</button>
-                    <button class="btn-edit" onclick="changeFontSize(this, 1)">➕大</button><button class="btn-edit" onclick="changeFontSize(this, -1)">➖小</button>
-                    <button class="btn-edit btn-bold" onclick="toggleBold(this)">𝐁</button>
-                    <button class="btn-edit" onclick="addCustomOption(this, 1)">➕吐司項</button>
-                    <button class="btn-edit" onclick="addCustomOption(this, 2)">➕漢堡項</button>
+                    <button class="btn-move" onclick="move(this,'up')">⬆️</button><button class="btn-move" onclick="move(this,'down')">⬇️</button>
+                    <button class="btn-move" onclick="move(this,'left')">⬅️</button><button class="btn-move" onclick="move(this,'right')">➡️</button>
+                    <button class="btn-edit" onclick="changeFontSize(this, -1)">➖更小</button>
+                    <button class="btn-edit" onclick="addCustomOption(this, 1)">➕吐司項</button><button class="btn-edit" onclick="addCustomOption(this, 2)">➕漢堡項</button>
                     <button class="btn-edit" style="color:red" onclick="this.closest('.section').remove()">✕</button>
                 </div>
                 <div class="custom-title" contenteditable="true">不加請打勾</div>
-                <table class="custom-table">
-                    <tr>
-                        <td id="toast-options">
-                            <b contenteditable="true">吐司：</b><br>
-                            <span class="option-item"><button class="no-print del-x" onclick="this.parentElement.remove()">✕</button><span class="box-square"></span><span contenteditable="true">沙拉</span></span>
-                            <span class="option-item"><button class="no-print del-x" onclick="this.parentElement.remove()">✕</button><span class="box-square"></span><span contenteditable="true">小黃瓜</span></span>
-                        </td>
-                        <td id="burger-options">
-                            <b contenteditable="true">漢堡：</b><br>
-                            <span class="option-item"><button class="no-print del-x" onclick="this.parentElement.remove()">✕</button><span class="box-square"></span><span contenteditable="true">沙拉</span></span>
-                            <span class="option-item"><button class="no-print del-x" onclick="this.parentElement.remove()">✕</button><span class="box-square"></span><span contenteditable="true">洋蔥</span></span>
-                        </td>
-                    </tr>
-                </table>
+                <div class="custom-content">
+                    <div class="custom-row" id="toast-options"><b contenteditable="true">吐司:</b></div>
+                    <div class="custom-row" id="burger-options"><b contenteditable="true">漢堡:</b></div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    const fonts = ['"Microsoft JhengHei", sans-serif', '"DFKai-SB", "標楷體", serif', '"PMingLiU", "新細明體", serif'];
-    let currentFontIndex = 0;
-
-    function cycleFont() {
-        currentFontIndex = (currentFontIndex + 1) % fonts.length;
-        document.getElementById('font-style').innerHTML = `body { font-family: ${fonts[currentFontIndex]}; }`;
-    }
-
     window.onload = function() {
-        const saved = localStorage.getItem('breakfast_v3');
+        const saved = localStorage.getItem('breakfast_mini_v5');
         if (saved) document.getElementById('menu-content').innerHTML = saved;
     };
 
     function saveMenu() {
-        localStorage.setItem('breakfast_v3', document.getElementById('menu-content').innerHTML);
-        alert('✅ 內容已儲存！');
-    }
-
-    function toggleBold(btn) {
-        const section = btn.closest('.section');
-        section.style.fontWeight = (section.style.fontWeight === '900') ? 'normal' : '900';
+        localStorage.setItem('breakfast_mini_v5', document.getElementById('menu-content').innerHTML);
+        alert('✅ 已儲存！');
     }
 
     function changeFontSize(btn, delta) {
         const section = btn.closest('.section');
-        const elements = section.querySelectorAll('table, .section-title, .custom-title, td, span');
+        const elements = section.querySelectorAll('table, .section-title, .custom-title, .price-align-header, td, span, div, b');
         elements.forEach(el => {
             const curSize = parseFloat(window.getComputedStyle(el).fontSize);
-            el.style.fontSize = (curSize + delta) + 'px';
+            if(curSize) el.style.fontSize = (curSize + delta) + 'px';
         });
     }
 
@@ -166,16 +145,12 @@
         else if (dir === 'right') document.getElementById('col-' + ((colId + 1) % 3)).appendChild(sec);
     }
 
-    // 關鍵新增：增加客製化不加選項
     function addCustomOption(btn, type) {
         const section = btn.closest('.section');
-        const toastTd = section.querySelector('#toast-options');
-        const burgerTd = section.querySelector('#burger-options');
-        const target = (type === 1) ? toastTd : burgerTd;
-        
+        const target = (type === 1) ? section.querySelector('#toast-options') : section.querySelector('#burger-options');
         const span = document.createElement('span');
         span.className = 'option-item';
-        span.innerHTML = `<button class="no-print del-x" onclick="this.parentElement.remove()">✕</button><span class="box-square"></span><span contenteditable="true">新選項</span>`;
+        span.innerHTML = `<button class="no-print del-x" onclick="this.parentElement.remove()">✕</button><span class="box-square"></span><span contenteditable="true">選項</span>`;
         target.appendChild(span);
     }
 
@@ -184,25 +159,14 @@
         const tr = document.createElement('tr');
         let cells = '';
         for(let i=0; i<count; i++) cells += `<div class="box-cell"><span class="box-square"></span><span contenteditable="true">0</span></div>`;
-        tr.innerHTML = `<td><button class="no-print del-x" onclick="this.closest('tr').remove()">✕</button><span contenteditable="true">新項目</span></td><td class="price-align-row">${cells}</td>`;
+        tr.innerHTML = `<td><span contenteditable="true">新項目</span></td><td class="price-align-row">${cells}</td>`;
         tbody.appendChild(tr);
     }
 
     function addNewSection() {
         const div = document.createElement('div');
         div.className = 'section';
-        div.innerHTML = `
-            <div class="controls no-print">
-                <button class="btn-edit btn-move" onclick="move(this,'up')">⬆️</button><button class="btn-edit btn-move" onclick="move(this,'down')">⬇️</button>
-                <button class="btn-edit btn-move" onclick="move(this,'left')">⬅️</button><button class="btn-edit btn-move" onclick="move(this,'right')">➡️</button>
-                <button class="btn-edit" onclick="changeFontSize(this, 1)">➕</button><button class="btn-edit" onclick="changeFontSize(this, -1)">➖</button>
-                <button class="btn-edit btn-bold" onclick="toggleBold(this)">𝐁</button>
-                <button class="btn-edit" onclick="addRow(this, 1)">➕1價</button><button class="btn-edit" onclick="addRow(this, 2)">➕2價</button>
-                <button class="btn-edit" onclick="addRow(this, 4)">➕4價</button>
-                <button class="btn-edit" style="color:red" onclick="this.closest('.section').remove()">✕</button>
-            </div>
-            <div class="section-title" contenteditable="true">新類別</div>
-            <table><tbody></tbody></table>`;
+        div.innerHTML = `<div class="controls no-print"><button class="btn-move" onclick="move(this,'up')">⬆️</button><button class="btn-move" onclick="move(this,'down')">⬇️</button><button class="btn-move" onclick="move(this,'left')">⬅️</button><button class="btn-move" onclick="move(this,'right')">➡️</button><button class="btn-edit" onclick="changeFontSize(this, -1)">➖</button><button class="btn-edit" onclick="addRow(this, 1)">➕1價</button><button class="btn-edit" style="color:red" onclick="this.closest('.section').remove()">✕</button></div><div class="section-title" contenteditable="true">新類別</div><table><tbody></tbody></table>`;
         document.getElementById('col-0').appendChild(div);
         addRow(div.querySelector('.btn-edit'), 1);
     }
@@ -210,18 +174,7 @@
     function addYellowBox() {
         const div = document.createElement('div');
         div.className = 'section custom-box';
-        div.innerHTML = `
-            <div class="controls no-print">
-                <button class="btn-edit btn-move" onclick="move(this,'up')">⬆️</button><button class="btn-edit btn-move" onclick="move(this,'down')">⬇️</button>
-                <button class="btn-edit btn-move" onclick="move(this,'left')">⬅️</button><button class="btn-edit btn-move" onclick="move(this,'right')">➡️</button>
-                <button class="btn-edit" onclick="changeFontSize(this, 1)">➕</button><button class="btn-edit" onclick="changeFontSize(this, -1)">➖</button>
-                <button class="btn-edit btn-bold" onclick="toggleBold(this)">𝐁</button>
-                <button class="btn-edit" onclick="addCustomOption(this, 1)">➕吐司項</button>
-                <button class="btn-edit" onclick="addCustomOption(this, 2)">➕漢堡項</button>
-                <button class="btn-edit" style="color:red" onclick="this.closest('.section').remove()">✕</button>
-            </div>
-            <div class="custom-title" contenteditable="true">不加請打勾</div>
-            <table class="custom-table"><tr><td id="toast-options"><b contenteditable="true">吐司：</b></td><td id="burger-options"><b contenteditable="true">漢堡：</b></td></tr></table>`;
+        div.innerHTML = `<div class="controls no-print"><button class="btn-move" onclick="move(this,'up')">⬆️</button><button class="btn-move" onclick="move(this,'down')">⬇️</button><button class="btn-move" onclick="move(this,'left')">⬅️</button><button class="btn-move" onclick="move(this,'right')">➡️</button><button class="btn-edit" onclick="changeFontSize(this, -1)">➖</button><button class="btn-edit" onclick="addCustomOption(this, 1)">➕吐司項</button><button class="btn-edit" onclick="addCustomOption(this, 2)">➕漢堡項</button><button class="btn-edit" style="color:red" onclick="this.closest('.section').remove()">✕</button></div><div class="custom-title" contenteditable="true">不加請打勾</div><div class="custom-content"><div class="custom-row" id="toast-options"><b>吐司:</b></div><div class="custom-row" id="burger-options"><b>漢堡:</b></div></div>`;
         document.getElementById('col-2').appendChild(div);
     }
 </script>
