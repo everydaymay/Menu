@@ -19,12 +19,14 @@
         td { border-bottom: 0.5px solid #eee; padding: 2.2px 2px; }
         .box { width: 12px; height: 12px; border: 1px solid #000; display: inline-block; vertical-align: middle; margin-right: 3px; }
         
-        .price-align-header { display: flex; justify-content: flex-end; padding-right: 2px; padding-bottom: 2px; background: #f9f9f9; border-bottom: 1px solid #ccc; }
+        /* 標籤對齊：確保標籤置中在勾選框上方 */
+        .price-align-header { display: flex; justify-content: flex-end; padding-right: 2px; padding-bottom: 2px; background: #f2f2f2; border-bottom: 1px solid #ccc; }
         .price-align-row { display: flex; justify-content: flex-end; align-items: center; }
         .cell-width { width: 38px; text-align: center; font-size: 9px; font-weight: bold; }
         .box-cell { width: 38px; text-align: center; white-space: nowrap; }
         
         footer { border-top: 2px solid #000; padding-top: 8px; margin-top: 10px; font-size: 12px; text-align: center; font-weight: bold; line-height: 1.5; }
+        @media print { .no-print { display: none; } }
     </style>
 </head>
 <body>
@@ -39,9 +41,8 @@
     <div class="main-grid">
         <div class="col">
             <div class="section">
-                <div class="section-title">吐司 / 漢堡 / 軟法 / 總匯</div>
                 <div class="price-align-header">
-                    <div style="flex-grow:1;"></div>
+                    <div style="flex-grow:1; text-align:left; padding-left:5px; font-size:11px; font-weight:bold;">漢堡/吐司/軟法/總匯</div>
                     <div class="cell-width">吐司</div><div class="cell-width">漢堡</div><div class="cell-width">軟法</div><div class="cell-width">總匯</div>
                 </div>
                 <table>
