@@ -2,63 +2,89 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>美天早餐 - 精細細線旗艦版</title>
+    <title>美天早餐 - 細線田字格終極版</title>
     <style id="font-style">body { font-family: "Microsoft JhengHei", sans-serif; }</style>
     <style>
+        /* 列印專屬設定：強制顯色，消除所有多餘控制按鈕 */
         @media print {
             .no-print, .controls, .toolbar, .del-cell { display: none !important; }
             body { margin: 0; padding: 0; background: #fff; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
             .a4-container { border: none !important; box-shadow: none !important; width: 100% !important; margin: 0 !important; padding: 5mm 8mm !important; }
             .section { page-break-inside: avoid; border: 1px solid #000 !important; overflow: visible !important; resize: none !important; }
-            table { border-collapse: collapse !important; border: 1px solid #000 !important; width: 100% !important; }
+            table { border-collapse: collapse !important; }
             td { border: 1px solid #000 !important; }
-            .section-title, .price-align-header, .custom-box { background-color: inherit !important; color: inherit !important; }
+            table tr td:first-child { border-left: none !important; }
+            table tr td:last-child { border-right: none !important; }
+            table tr:last-child td { border-bottom: none !important; }
         }
 
         body { background: #dfe6e9; margin: 0; padding: 20px; color: #000; }
-        .toolbar { background: #2d3436; color: #fff; padding: 12px; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; gap: 8px; align-items: center; justify-content: center; }
+        
+        .toolbar { background: #2d3436; color: #fff; padding: 12px; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; gap: 8px; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); flex-wrap: wrap; }
         .btn { padding: 8px 15px; cursor: pointer; border: none; border-radius: 4px; font-weight: bold; }
         .btn-save { background: #0984e3; color: white; }
         .btn-print { background: #00b894; color: white; }
         .btn-add-sec { background: #6c5ce7; color: white; }
 
-        .a4-container { width: 210mm; min-height: 297mm; background: #fff; margin: 60px auto; padding: 8mm 10mm; box-sizing: border-box; border: 1px solid #ccc; display: flex; flex-direction: column; }
+        .a4-container { width: 210mm; min-height: 297mm; background: #fff; margin: 60px auto; padding: 8mm 10mm; box-sizing: border-box; border: 1px solid #ccc; display: flex; flex-direction: column; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
         
         header { border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 8px; }
-        .header-info-bar { display: flex; justify-content: space-between; border: 1px solid #000; padding: 5px 10px; font-weight: bold; font-size: 14px; }
+        .header-info-bar { display: flex; justify-content: space-between; border: 1px solid #000; margin-top: 5px; padding: 5px 10px; font-weight: bold; font-size: 14px; }
         .underline { border-bottom: 1px solid #000; min-width: 45px; display: inline-block; text-align: center; margin: 0 5px; outline: none; }
 
-        .main-grid { display: grid; grid-template-columns: 1.15fr 0.9fr 0.95fr; gap: 10px; flex-grow: 1; }
-        .col { display: flex; flex-direction: column; gap: 10px; }
+        .main-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; flex-grow: 1; }
+        .col { display: flex; flex-direction: column; gap: 10px; min-height: 100px; }
 
-        /* 區塊設定：線條改為 1px */
+        /* 區塊外框：絕對 1px 細線 */
         .section { 
             border: 1px solid #000; 
             margin-bottom: 10px; 
+            border-radius: 2px; 
             position: relative; 
             background: #fff; 
-            resize: both; 
             overflow: auto; 
-            min-width: 150px; 
+            resize: both; 
+            min-width: 150px;
+            min-height: 50px;
         }
-        .section-title { background: #000; color: #fff; padding: 6px; font-weight: bold; text-align: center; font-size: 15px; }
-        .price-align-header { background: #f2f2f2; border-bottom: 1px solid #000; padding: 4px 10px; font-size: 12px; font-weight: bold; min-height: 1.2em; display: flex; align-items: center; }
+        .section-title { background: #000; color: #fff; padding: 5px; font-weight: bold; text-align: center; font-size: 14px; }
+        
+        /* 灰底列 */
+        .price-align-header { 
+            background-color: #f2f2f2; 
+            border-bottom: 1px solid #000; 
+            padding: 4px 10px; 
+            font-size: 11px; 
+            font-weight: bold; 
+            display: flex; 
+            align-items: center; 
+        }
 
         .controls { background: #eee; padding: 4px; display: flex; gap: 2px; border-bottom: 1px solid #ccc; flex-wrap: wrap; justify-content: center; }
-        .btn-edit { font-size: 10px; padding: 2px 5px; cursor: pointer; border: 1px solid #ccc; background: #fff; border-radius: 3px; }
+        .btn-move { background: #636e72; color: white; font-size: 10px; padding: 2px 4px; border: none; cursor: pointer; border-radius: 3px; }
+        .btn-edit { font-size: 10px; padding: 2px 4px; cursor: pointer; border: 1px solid #ccc; background: #fff; border-radius: 3px; }
+        .btn-bold { font-weight: 900; background: #2d3436; color: #fff; }
 
-        /* 表格設定：線條改為 1px */
-        table { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; border: 1px solid #000; }
+        /* 完美細線表格 (消除重疊的雙線) */
+        table { width: 100%; border-collapse: collapse; font-size: 11px; table-layout: fixed; }
         td { border: 1px solid #000; padding: 5px 2px; vertical-align: middle; text-align: center; position: relative; }
-        .item-name-td { width: 35%; text-align: left; padding-left: 5px; }
+        table tr td:first-child { border-left: none; }
+        table tr td:last-child { border-right: none; }
+        table tr:last-child td { border-bottom: none; }
         
-        .box-square { width: 13px; height: 13px; border: 1px solid #000; display: inline-block; vertical-align: middle; margin-right: 2px; }
-        .del-x { color: red; border: none; background: none; cursor: pointer; font-weight: bold; font-size: 12px; }
-        .del-cell { position: absolute; top: -2px; right: 0; color: #bbb; font-size: 9px; cursor: pointer; padding: 2px; font-weight: normal; }
+        .item-name-td { width: 40%; text-align: left; padding-left: 5px; }
+        .box-square { width: 12px; height: 12px; border: 1px solid #000; display: inline-block; vertical-align: middle; margin-right: 2px; }
+        
+        .del-x { color: red; border: none; background: none; cursor: pointer; font-weight: bold; font-size: 14px; margin-right: 2px; }
+        .del-cell { position: absolute; top: 0px; right: 0px; color: #bbb; font-size: 9px; cursor: pointer; padding: 2px; line-height: 1; }
+        .del-cell:hover { color: red; }
 
-        .custom-box { background: #fff9c4; border: 1px solid #000; border-radius: 10px; padding: 10px; }
-        .custom-title { color: #d32f2f; font-weight: bold; text-align: center; font-size: 14px; margin-bottom: 5px; }
-        .custom-item { display: inline-block; margin-right: 8px; white-space: nowrap; }
+        /* 黃色客製框：版面排版重構 */
+        .custom-box { background: #fff9c4; border: 1px solid #000; border-radius: 8px; padding: 8px; resize: both; overflow: auto; }
+        .custom-title { color: #d32f2f; font-weight: bold; text-align: center; font-size: 12px; margin-bottom: 5px; }
+        .custom-table { width: 100%; border-collapse: collapse; font-size: 11px; border: none !important; }
+        .custom-table td { border: none !important; text-align: left; vertical-align: top; padding: 2px; }
+        .custom-item { display: inline-block; margin-right: 5px; margin-bottom: 3px; white-space: nowrap; }
 
         footer { border-top: 2px solid #000; padding-top: 8px; margin-top: auto; font-size: 12px; text-align: center; font-weight: bold; }
     </style>
@@ -66,7 +92,7 @@
 <body>
 
 <div class="toolbar no-print">
-    <button class="btn btn-add-sec" onclick="addNewSection()">➕ 新增一般區塊</button>
+    <button class="btn btn-add-sec" onclick="addNewSection()">➕ 新增區塊</button>
     <button class="btn btn-save" onclick="saveMenu()">💾 儲存存檔</button>
     <button class="btn btn-print" onclick="window.print()">🖨️ 直接列印</button>
 </div>
@@ -88,19 +114,25 @@
         <div class="col" id="col-0">
             <div class="section">
                 <div class="controls no-print">
+                    <button class="btn-move" onclick="move(this,'up')">⬆️</button><button class="btn-move" onclick="move(this,'down')">⬇️</button>
+                    <button class="btn-move" onclick="move(this,'left')">⬅️</button><button class="btn-move" onclick="move(this,'right')">➡️</button>
                     <button class="btn-edit" onclick="pickColorAdvanced(this,'.section-title')">🎨主標</button>
                     <button class="btn-edit" onclick="pickColorAdvanced(this,'.price-align-header')">🎨子標</button>
                     <button class="btn-edit" onclick="changeFontSize(this, 1)">➕大</button>
                     <button class="btn-edit" onclick="changeFontSize(this, -1)">➖小</button>
+                    <button class="btn-edit btn-bold" onclick="toggleBold(this)">𝐁</button>
+                    <button class="btn-edit" onclick="setColumns(this, 1)">➕1價</button>
+                    <button class="btn-edit" onclick="setColumns(this, 2)">➕2價</button>
+                    <button class="btn-edit" onclick="setColumns(this, 3)">➕3價</button>
                     <button class="btn-edit" onclick="setColumns(this, 4)">➕4價</button>
-                    <button class="btn-edit" style="color:red" onclick="this.closest('.section').remove()">✕</button>
+                    <button class="btn-edit" style="color:red" onclick="this.closest('.section').remove()">✕全區</button>
                 </div>
                 <div class="section-title" contenteditable="true" style="background-color: black; color: white;">漢堡 / 吐司 / 軟法 / 總匯</div>
                 <div class="price-align-header" style="background-color: #f2f2f2; color: black;">
                     <button class="no-print del-x" onclick="this.parentElement.remove()">✕</button>
-                    <div contenteditable="true" style="flex-grow: 1;">品項名稱　　　　　　　吐司　漢堡　軟法　總匯</div>
+                    <div contenteditable="true" style="flex-grow: 1;">品項名稱　　　　　　　　　　吐司　漢堡　軟法　總匯</div>
                 </div>
-                <table>
+                <table data-cols="4">
                     <tbody>
                         <tr>
                             <td class="item-name-td"><button class="no-print del-x" onclick="this.closest('tr').remove()">✕</button><span contenteditable="true">範例品項</span></td>
@@ -111,32 +143,41 @@
                         </tr>
                     </tbody>
                 </table>
-                <button class="btn-edit no-print" style="width:100%; border:none; background:#f9f9f9;" onclick="addRow(this)">➕ 新增一行</button>
+                <button class="btn-edit no-print" style="width:100%; border:none; background:#f9f9f9; padding:4px;" onclick="addRow(this)">➕ 新增一行</button>
             </div>
         </div>
         <div class="col" id="col-1"></div>
         <div class="col" id="col-2">
-            <div class="section custom-box">
-                <div class="controls no-print">
+            <div class="section custom-box" style="background-color: #fff9c4;">
+                <div class="controls no-print" style="background:transparent; border:none;">
+                    <button class="btn-move" onclick="move(this,'up')">⬆️</button><button class="btn-move" onclick="move(this,'down')">⬇️</button>
+                    <button class="btn-move" onclick="move(this,'left')">⬅️</button><button class="btn-move" onclick="move(this,'right')">➡️</button>
                     <button class="btn-edit" onclick="changeFontSize(this, -1)">➖小</button>
+                    <button class="btn-edit btn-bold" onclick="toggleBold(this)">𝐁</button>
                     <button class="btn-edit" style="color:red" onclick="this.closest('.section').remove()">✕</button>
                 </div>
                 <div class="custom-title" contenteditable="true">不加請打勾</div>
-                <div style="font-size:12px;" contenteditable="true">
-                    <div><b>吐司：</b> 
-                        <span class="custom-item"><span class="box-square"></span>沙拉</span> 
-                        <span class="custom-item"><span class="box-square"></span>小黃瓜</span> 
-                        <span class="custom-item"><span class="box-square"></span>胡椒粉</span>
-                    </div>
-                    <div style="margin-top:5px;"><b>漢堡：</b> 
-                        <span class="custom-item"><span class="box-square"></span>沙拉</span> 
-                        <span class="custom-item"><span class="box-square"></span>生菜</span> 
-                        <span class="custom-item"><span class="box-square"></span>洋蔥</span> 
-                        <span class="custom-item"><span class="box-square"></span>番茄醬</span> 
-                        <span class="custom-item"><span class="box-square"></span>番茄片</span> 
-                        <span class="custom-item"><span class="box-square"></span>胡椒粉</span>
-                    </div>
-                </div>
+                <table class="custom-table" contenteditable="true">
+                    <tr>
+                        <td style="width: 45px; font-weight: bold;">吐司：</td>
+                        <td>
+                            <span class="custom-item"><span class="box-square"></span>沙拉</span>
+                            <span class="custom-item"><span class="box-square"></span>小黃瓜</span>
+                            <span class="custom-item"><span class="box-square"></span>胡椒粉</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">漢堡：</td>
+                        <td>
+                            <span class="custom-item"><span class="box-square"></span>沙拉</span>
+                            <span class="custom-item"><span class="box-square"></span>生菜</span>
+                            <span class="custom-item"><span class="box-square"></span>洋蔥</span>
+                            <span class="custom-item"><span class="box-square"></span>番茄醬</span>
+                            <span class="custom-item"><span class="box-square"></span>番茄片</span>
+                            <span class="custom-item"><span class="box-square"></span>胡椒粉</span>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
@@ -144,13 +185,18 @@
 
 <script>
     window.onload = function() {
-        const saved = localStorage.getItem('breakfast_final_master_stable');
+        const saved = localStorage.getItem('breakfast_final_thin_v17');
         if (saved) document.getElementById('menu-content').innerHTML = saved;
     };
 
     function saveMenu() {
-        localStorage.setItem('breakfast_final_master_stable', document.getElementById('menu-content').innerHTML);
-        alert('✅ 菜單已成功儲存！');
+        localStorage.setItem('breakfast_final_thin_v17', document.getElementById('menu-content').innerHTML);
+        alert('✅ 儲存成功！顏色、大小與排版均已固定。');
+    }
+
+    function toggleBold(btn) {
+        const section = btn.closest('.section');
+        section.style.fontWeight = (section.style.fontWeight === '900') ? 'normal' : '900';
     }
 
     function changeFontSize(btn, delta) {
@@ -160,16 +206,23 @@
             const cur = parseFloat(window.getComputedStyle(el).fontSize);
             if(cur) el.style.fontSize = (cur + delta) + 'px';
         });
+        section.querySelectorAll('.box-square').forEach(box => {
+            const curW = parseFloat(window.getComputedStyle(box).width);
+            box.style.width = (curW + delta) + 'px';
+            box.style.height = (curW + delta) + 'px';
+        });
     }
 
+    // 修復：顏色 100% 生效
     function pickColorAdvanced(btn, selector) {
         const target = btn.closest('.section').querySelector(selector);
-        if(!target) return;
-        const bgColor = prompt("1. 請輸入【背景顏色】(例: pink, #f2f2f2, black):", "black");
-        if (bgColor !== null) {
+        if(!target) return alert("目標已刪除。");
+        
+        const bgColor = prompt("1. 請輸入【背景顏色】 (例如: pink, #ffcccc, black, gray):", "black");
+        if (bgColor) {
             target.style.setProperty('background-color', bgColor, 'important');
-            const textColor = prompt("2. 請輸入【文字顏色】(例: white, red, yellow):", "white");
-            if (textColor !== null) {
+            const textColor = prompt("2. 請輸入【文字顏色】 (例如: white, #ffffff, black):", "white");
+            if (textColor) {
                 target.style.setProperty('color', textColor, 'important');
             }
         }
@@ -197,7 +250,8 @@
         const table = section.querySelector('table');
         const count = parseInt(table.dataset.cols || 1);
         const tr = document.createElement('tr');
-        let html = `<td class="item-name-td"><button class="no-print del-x" onclick="this.closest('tr').remove()">✕</button><span contenteditable="true">品項</span></td>`;
+        
+        let html = `<td class="item-name-td"><button class="no-print del-x" onclick="this.closest('tr').remove()">✕</button><span contenteditable="true">新項目</span></td>`;
         for(let i=0; i<count; i++) {
             html += `<td><span class="no-print del-cell" onclick="this.parentElement.remove()">x</span><span class="box-square"></span><span contenteditable="true">0</span></td>`;
         }
@@ -208,7 +262,27 @@
     function addNewSection() {
         const div = document.createElement('div');
         div.className = 'section';
-        div.innerHTML = `<div class="controls no-print"><button class="btn-edit" onclick="pickColorAdvanced(this,'.section-title')">🎨主</button><button class="btn-edit" onclick="pickColorAdvanced(this,'.price-align-header')">🎨子</button><button class="btn-edit" onclick="changeFontSize(this, 1)">➕</button><button class="btn-edit" onclick="changeFontSize(this, -1)">➖</button><button class="btn-edit" onclick="setColumns(this, 1)">➕1價</button><button class="btn-edit" onclick="setColumns(this, 4)">➕4價</button><button class="btn-edit" style="color:red" onclick="this.closest('.section').remove()">✕</button></div><div class="section-title" contenteditable="true" style="background-color:black; color:white;">新類別</div><div class="price-align-header" style="background-color:#f2f2f2;"><button class="no-print del-x" onclick="this.parentElement.remove()">✕</button><div contenteditable="true" style="flex-grow: 1;">品項名稱　單價</div></div><table data-cols="1"><tbody></tbody></table><button class="btn-edit no-print" style="width:100%; border:none; background:#f9f9f9;" onclick="addRow(this)">➕ 新增一行</button>`;
+        div.innerHTML = `
+            <div class="controls no-print">
+                <button class="btn-move" onclick="move(this,'up')">⬆️</button><button class="btn-move" onclick="move(this,'down')">⬇️</button>
+                <button class="btn-move" onclick="move(this,'left')">⬅️</button><button class="btn-move" onclick="move(this,'right')">➡️</button>
+                <button class="btn-edit" onclick="pickColorAdvanced(this,'.section-title')">🎨主</button>
+                <button class="btn-edit" onclick="pickColorAdvanced(this,'.price-align-header')">🎨子</button>
+                <button class="btn-edit" onclick="changeFontSize(this, 1)">➕</button><button class="btn-edit" onclick="changeFontSize(this, -1)">➖</button>
+                <button class="btn-edit btn-bold" onclick="toggleBold(this)">𝐁</button>
+                <button class="btn-edit" onclick="setColumns(this, 1)">➕1價</button>
+                <button class="btn-edit" onclick="setColumns(this, 2)">➕2價</button>
+                <button class="btn-edit" onclick="setColumns(this, 3)">➕3價</button>
+                <button class="btn-edit" onclick="setColumns(this, 4)">➕4價</button>
+                <button class="btn-edit" style="color:red" onclick="this.closest('.section').remove()">✕</button>
+            </div>
+            <div class="section-title" contenteditable="true" style="background-color:black; color:white;">新類別</div>
+            <div class="price-align-header" style="background-color:#f2f2f2; color:black;">
+                <button class="no-print del-x" onclick="this.parentElement.remove()">✕</button>
+                <div contenteditable="true" style="flex-grow: 1;">品項名稱　單價</div>
+            </div>
+            <table data-cols="1"><tbody></tbody></table>
+            <button class="btn-edit no-print" style="width:100%; border:none; background:#f9f9f9; padding:4px;" onclick="addRow(this)">➕ 新增一行</button>`;
         document.getElementById('col-0').appendChild(div);
         addRow(div.querySelector('.btn-edit'));
     }
