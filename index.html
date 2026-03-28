@@ -13,14 +13,14 @@
         .top-meta { display: flex; justify-content: space-between; font-size: 11px; font-weight: bold; margin-bottom: 4px; border: 1px solid #000; padding: 2px 6px; }
         .main-grid { display: grid; grid-template-columns: 1.15fr 0.9fr 0.95fr; gap: 6px; flex-grow: 1; }
         .section { border: 1px solid #000; margin-bottom: 4px; border-radius: 2px; overflow: hidden; }
-        .section-title { background: #000; color: #fff; font-size: 10px; padding: 1px; font-weight: bold; text-align: center; }
+        .section-title { background: #000; color: #fff; font-size: 10px; padding: 1.5px; font-weight: bold; text-align: center; }
         
         table { width: 100%; border-collapse: collapse; font-size: 8.8px; }
         td { border-bottom: 0.5px solid #eee; padding: 1.5px 2px; }
         .box { width: 10px; height: 10px; border: 1px solid #000; display: inline-block; vertical-align: middle; margin-right: 2px; }
         
-        /* 核心對齊樣式 */
-        .price-align-header { display: flex; justify-content: flex-end; padding-right: 2px; padding-bottom: 2px; background: #f2f2f2; border-bottom: 1px solid #ccc; }
+        /* 價格對齊樣式 */
+        .price-align-header { display: flex; justify-content: flex-end; padding-right: 2px; padding-bottom: 2px; background: #fff; border-bottom: 1px solid #ccc; }
         .price-align-row { display: flex; justify-content: flex-end; align-items: center; }
         .cell-width { width: 34px; text-align: center; font-size: 8.5px; font-weight: bold; }
         .box-cell { width: 34px; text-align: center; white-space: nowrap; }
@@ -32,115 +32,143 @@
 <div class="a4-container">
     <header>
         <h1>美天早餐 點菜單</h1>
-        <div class="shop-info">📞 02-2270-3918 | 📍 土城區延吉街53號</div>
+        <div class="shop-info">📞 02-2270-3918 | 📍 土城區延吉街53號 [cite: 2, 6]</div>
     </header>
     <div class="top-meta">
-        <div>內用桌號：____</div><div><span class="box"></span>外帶</div><div>金額：________ 元</div>
+        <div>內用桌號：____ [cite: 3]</div><div><span class="box"></span>外帶 [cite: 4]</div><div>金額：________ 元 [cite: 5]</div>
     </div>
     <div class="main-grid">
         <div class="col">
             <div class="section">
+                <div class="section-title">吐司 / 漢堡 / 軟法 / 總匯 [cite: 23]</div>
                 <div class="price-align-header">
-                    <div style="flex-grow:1; text-align:left; padding-left:5px; font-size:10px;">吐司 / 漢堡 / 軟法 / 總匯</div>
+                    <div style="flex-grow:1;"></div>
                     <div class="cell-width">吐司</div><div class="cell-width">漢堡</div><div class="cell-width">軟法</div><div class="cell-width">總匯</div>
                 </div>
                 <table>
                     <script>
-                        const b = [["煎蛋",30,35,50,50],["肉鬆",35,40,55,55],["火腿",35,40,55,55],["培根",35,40,55,55],["起士",35,40,55,55],["薯餅",40,45,60,60],["肉排",40,45,60,60],["鮪魚",40,45,60,60],["香雞排",45,50,65,65],["里肌豬排",45,50,65,65],["鮮蝦",45,50,65,65],["燻雞",45,50,65,65],["藍帶豬排",60,65,80,80],["雞柳",60,65,75,75],["明太鱈魚",70,75,90,90],["菲力雞排",70,75,90,90],["卡拉雞腿(辣)",65,70,85,85]];
+                        const b = [
+                            ["煎蛋", 30, 35, 50, 50], ["肉鬆", 35, 40, 55, 55], ["火腿", 35, 40, 55, 55], 
+                            ["培根", 35, 40, 55, 55], ["起士", 35, 40, 55, 55], ["薯餅", 40, 45, 60, 60], 
+                            ["肉排", 40, 45, 60, 60], ["鮪魚", 40, 45, 60, 60], ["香雞排", 45, 50, 65, 65], 
+                            ["里肌豬排", 45, 50, 65, 65], ["鮮蝦", 45, 50, 65, 65], ["燻雞", 45, 50, 65, 65], 
+                            ["藍帶豬排", 60, 65, 80, 80], ["雞柳", 60, 65, 75, 75], ["明太鱈魚", 70, 75, 90, 90], 
+                            ["菲力雞排", 70, 75, 90, 90], ["卡拉雞腿(辣)", 65, 70, 85, 85]
+                        ];
                         b.forEach(i => { 
-                            document.write(`<tr><td>${i[0]}</td><td class="price-align-row">` + 
-                            i.slice(1).map(p => `<div class="box-cell"><span class="box"></span>${p}</div>`).join('') + 
+                            document.write(`<tr><td>${i[0]} [cite: 10, 16, 19, 24, 25, 26, 52, 60, 65, 71, 77, 84, 88, 92, 96, 102, 106]</td><td class="price-align-row">` + 
+                            i.slice(1).map(p => `<div class="box-cell"><span class="box"></span>${p} [cite: 11, 18, 20, 21, 27, 28, 53, 61, 62, 74, 80, 85, 89, 93, 97, 104, 108]</div>`).join('') + 
                             `</td></tr>`); 
                         });
                     </script>
                 </table>
             </div>
             <div class="section">
-                <div class="section-title">果醬系列 (<span class="box"></span>加厚果醬+5元)</div>
+                <div class="section-title">果醬系列 [cite: 118] (<span class="box"></span>加厚果醬+5元 [cite: 121])</div>
                 <div class="price-align-header">
                     <div style="flex-grow:1;"></div>
                     <div class="cell-width">薄片</div><div class="cell-width">厚片</div><div class="cell-width">乳酪</div>
                 </div>
                 <table>
                     <script>
-                        const j = ["奶油","花生","草莓","巧克力","椰香奶酥","藍莓","香蒜","沙拉"];
-                        j.forEach(n => { document.write(`<tr><td>${n}</td><td class="price-align-row"><div class="box-cell"><span class="box"></span>15</div><div class="box-cell"><span class="box"></span>30</div><div class="box-cell"><span class="box"></span>35</div></td></tr>`); });
+                        const j = [["奶油/花生", 123], ["草莓/巧克力", 125], ["椰香奶酥", 131], ["藍莓/香蒜", 137], ["沙拉", 138]];
+                        j.forEach(n => { document.write(`<tr><td>${n[0]}}]</td><td class="price-align-row"><div class="box-cell"><span class="box"></span>15</div><div class="box-cell"><span class="box"></span>30</div><div class="box-cell"><span class="box"></span>35 [cite: 124, 125, 132, 139]</div></td></tr>`); });
                     </script>
                 </table>
             </div>
             <div class="section">
-                <div class="section-title">乳酪餅 + 蛋</div>
+                <div class="section-title">乳酪餅 + 蛋 [cite: 149]</div>
                 <table>
                     <script>
-                        const c = [["煎蛋",40],["火腿",45],["肉鬆",45],["培根",45],["鮪魚",50],["里肌豬排",55],["燻雞",55]];
-                        c.forEach(i => { document.write(`<tr><td>${i[0]}</td><td style="text-align:right;"><span class="box"></span>${i[1]}</td></tr>`); });
+                        const c = [
+                            ["煎蛋", 40, 153], ["火腿", 45, 166], ["肉鬆", 45, 167], ["培根", 45, 168], 
+                            ["鮪魚", 50, 169], ["里肌豬排", 55, 170], ["燻雞", 55, 164]
+                        ];
+                        c.forEach(i => { document.write(`<tr><td>${i[0]}}]</td><td style="text-align:right;"><span class="box"></span>${i[1]} [cite: 154, 160, 171, 172, 173, 174, 175]</td></tr>`); });
                     </script>
                 </table>
             </div>
         </div>
         <div class="col">
             <div class="section">
-                <div class="section-title">蛋餅系列 (<span class="box"></span>醬油 <span class="box"></span>辣椒醬油)</div>
+                <div class="section-title">蛋餅系列 [cite: 33] (<span class="box"></span>醬油 <span class="box"></span>辣椒醬油 [cite: 35])</div>
                 <table>
                     <script>
-                        const e = [["原味",30],["玉米",35],["九層塔",35],["起士",35],["肉鬆",35],["火腿",35],["培根",35],["熱狗",35],["薯餅",40],["鮪魚",40],["肉排",40],["香雞排",45],["里肌豬排",45],["鮮蝦",45],["燻雞",45],["高麗菜培根",50],["雞柳",65],["明太鱈魚",70]];
-                        e.forEach(i => { document.write(`<tr><td>${i[0]}</td><td style="text-align:right;"><span class="box"></span>${i[1]}</td></tr>`); });
+                        const e = [
+                            ["原味", 30, 36], ["玉米", 35, 39], ["九層塔", 35, 29], ["起士", 35, 30], ["肉鬆", 35, 47], 
+                            ["火腿", 35, 50], ["培根", 35, 55], ["熱狗", 35, 62], ["薯餅", 40, 26], ["鮪魚", 40, 75], 
+                            ["肉排", 40, 81], ["香雞排", 45, 86], ["里肌豬排", 45, 90], ["鮮蝦", 45, 94], ["燻雞", 45, 98], 
+                            ["高麗菜培根", 50, 105], ["雞柳", 65, 110], ["明太鱈魚", 70, 96]
+                        ];
+                        e.forEach(i => { document.write(`<tr><td>${i[0]}}]</td><td style="text-align:right;"><span class="box"></span>${i[1]} [cite: 37, 40, 31, 48, 51, 57, 64, 70, 76, 82, 87, 91, 95, 99, 111]</td></tr>`); });
                     </script>
                 </table>
             </div>
             <div class="section">
-                <div class="section-title">中式輕食 (<span class="box"></span>醬油 <span class="box"></span>辣椒醬油)</div>
+                <div class="section-title">中式輕食 [cite: 204] (<span class="box"></span>醬油 <span class="box"></span>辣椒醬油 [cite: 212])</div>
                 <table>
-                    <tr><td>荷包蛋 (<span class="box"></span>全熟 <span class="box"></span>半熟)</td><td style="text-align:right;"><span class="box"></span>15</td></tr>
-                    <tr><td>蔥蛋</td><td style="text-align:right;"><span class="box"></span>25</td></tr>
-                    <tr><td>九層塔蛋</td><td style="text-align:right;"><span class="box"></span>25</td></tr>
-                    <tr><td>玉米蛋</td><td style="text-align:right;"><span class="box"></span>25</td></tr>
-                    <tr><td>蔥抓餅</td><td style="text-align:right;"><span class="box"></span>30</td></tr>
-                    <tr><td><span class="box"></span>加蛋</td><td style="text-align:right;"><span class="box"></span>45</td></tr>
-                    <tr><td>煎餃 (10顆)</td><td style="text-align:right;"><span class="box"></span>35</td></tr>
-                    <tr><td>蘿蔔糕 (1片)</td><td style="text-align:right;"><span class="box"></span>20</td></tr>
-                    <tr><td>蘿蔔糕 (2片)</td><td style="text-align:right;"><span class="box"></span>35</td></tr>
-                    <tr><td>蘿蔔糕辣炒塔香蛋</td><td style="text-align:right;"><span class="box"></span>60</td></tr>
+                    <tr><td>荷包蛋 (<span class="box"></span>全熟 <span class="box"></span>半熟 [cite: 214])</td><td style="text-align:right;"><span class="box"></span>15 [cite: 219, 220]</td></tr>
+                    <tr><td>蔥蛋 [cite: 225]</td><td style="text-align:right;"><span class="box"></span>25 [cite: 226]</td></tr>
+                    <tr><td>九層塔蛋 [cite: 225]</td><td style="text-align:right;"><span class="box"></span>25 [cite: 226]</td></tr>
+                    <tr><td>玉米蛋 [cite: 232]</td><td style="text-align:right;"><span class="box"></span>25 [cite: 233]</td></tr>
+                    <tr><td>蔥抓餅 [cite: 239]</td><td style="text-align:right;"><span class="box"></span>30 [cite: 240]</td></tr>
+                    <tr><td>蔥抓餅加蛋 [cite: 205]</td><td style="text-align:right;"><span class="box"></span>45 [cite: 240]</td></tr>
+                    <tr><td>煎餃 (10顆) [cite: 243]</td><td style="text-align:right;"><span class="box"></span>35 [cite: 244]</td></tr>
+                    <tr><td>蘿蔔糕 (1片) [cite: 250]</td><td style="text-align:right;"><span class="box"></span>20</td></tr>
+                    <tr><td>蘿蔔糕 (2片) [cite: 250]</td><td style="text-align:right;"><span class="box"></span>35 [cite: 252]</td></tr>
+                    <tr><td>蘿蔔糕辣炒塔香蛋 [cite: 256]</td><td style="text-align:right;"><span class="box"></span>60 [cite: 257]</td></tr>
                 </table>
             </div>
             <div class="section">
-                <div class="section-title">精選套餐 (附中紅，換飲折10元)</div>
+                <div class="section-title">精選套餐 [cite: 34] (附中紅 [cite: 49, 69, 95, 120]，換飲折10元 [cite: 32])</div>
                 <table>
-                    <tr><td><span class="box"></span>1號: 鐵板麵+豬排+荷包蛋+中紅</td><td style="text-align:right;"><span class="box"></span>85</td></tr>
-                    <tr><td><span class="box"></span>2號: 蘿蔔糕1片+煎餃3顆+原味蛋餅+中紅</td><td style="text-align:right;"><span class="box"></span>70</td></tr>
-                    <tr><td><span class="box"></span>3號: 沙拉吐司+火腿+熱狗2條+散蛋+中紅</td><td style="text-align:right;"><span class="box"></span>65</td></tr>
-                    <tr><td><span class="box"></span>兒童: 巧克力吐司1片+雞塊2塊+薯條+熱狗2條</td><td style="text-align:right;"><span class="box"></span>65</td></tr>
+                    <tr><td>1號: 鐵板麵+豬排+荷包蛋+中紅 [cite: 41, 45, 46, 49]</td><td style="text-align:right;"><span class="box"></span>85 [cite: 43]</td></tr>
+                    <tr><td>2號: 蘿蔔糕1片+煎餃3顆+原味蛋餅+中紅 [cite: 63, 69]</td><td style="text-align:right;"><span class="box"></span>70 [cite: 59]</td></tr>
+                    <tr><td>3號: 沙拉吐司+火腿+熱狗2條+散蛋+中紅 [cite: 87, 91, 95]</td><td style="text-align:right;"><span class="box"></span>65 [cite: 83]</td></tr>
+                    <tr><td>兒童: 巧克力吐司1片+雞塊2塊+薯條+熱狗2條 [cite: 109, 113, 116]</td><td style="text-align:right;"><span class="box"></span>65 [cite: 109]</td></tr>
                 </table>
             </div>
         </div>
         <div class="col">
             <div class="section">
-                <div class="section-title">飲料系列 (<span class="box"></span>冰 <span class="box"></span>溫 <span class="box"></span>熱)</div>
+                <div class="section-title">飲料系列 [cite: 128] (<span class="box"></span>冰 <span class="box"></span>溫 <span class="box"></span>熱 [cite: 127, 135, 142, 147, 152, 158, 180, 185, 187, 190, 194, 198, 202, 209, 217, 230, 237])</div>
                 <div class="price-align-header">
                     <div style="flex-grow:1;"></div>
                     <div class="cell-width">中杯</div><div class="cell-width">大杯</div>
                 </div>
                 <table>
                     <script>
-                        const dr = [["紅茶",15,20],["無糖紅茶",15,20],["奶茶",20,25],["無糖奶茶",20,25],["豆漿",20,20],["無糖豆漿",20,20],["糙米漿",15,15],["糙米紅",15,15],["燕麥薏仁",30,30],["杏仁漿",30,30],["黑芝麻漿",25,30],["鮮奶茶",30,35],["咖啡",30,35],["鴛鴦",30,35],["奶咖",30,35],["可可",30,35],["特調咖啡",30,35],["柳橙汁",25,30],["檸檬紅茶",25,30],["美式咖啡",50,50],["鮮奶咖啡",60,60],["可樂",25,25]];
-                        dr.forEach(d => { document.write(`<tr><td>${d[0]}</td><td class="price-align-row"><div class="box-cell"><span class="box"></span>${d[1]}</div><div class="box-cell"><span class="box"></span>${d[2]}</div></td></tr>`); });
+                        const dr = [
+                            ["紅茶", 15, 20, 130], ["無糖紅茶", 15, 20, 134], ["奶茶", 20, 25, 141], 
+                            ["無糖奶茶", 20, 25, 146], ["豆漿", 20, 20, 151], ["無糖豆漿", 20, 20, 157], 
+                            ["糙米漿", 15, 15, 184], ["杏仁漿", 30, 30, 179], ["燕麥薏仁", 30, 30, 190], 
+                            ["黑芝麻漿", 25, 30, 178], ["鮮奶茶", 30, 35, 197], ["特調咖啡", 30, 35, 207], 
+                            ["柳橙汁", 25, 30, 236], ["檸檬紅茶", 25, 30, 242], ["美式咖啡", 50, 50, 222], 
+                            ["鮮奶咖啡", 60, 60, 229], ["可樂", 25, 25, 248]
+                        ];
+                        dr.forEach(d => { document.write(`<tr><td>${d[0]}}]</td><td class="price-align-row"><div class="box-cell"><span class="box"></span>${d[1]} [cite: 127, 136, 142, 148, 152, 159, 181, 186, 188, 191, 195, 199, 210, 218, 231, 238, 246, 249]</div><div class="box-cell"><span class="box"></span>${d[2]}</div></td></tr>`); });
                     </script>
                 </table>
             </div>
             <div class="section">
-                <div class="section-title">炸物小點 (<span class="box"></span>胡椒鹽 <span class="box"></span>番茄醬)</div>
+                <div class="section-title">炸物小點 [cite: 150] (<span class="box"></span>胡椒鹽 <span class="box"></span>番茄醬 [cite: 155, 156, 100, 221])</div>
                 <table>
                     <script>
-                        const z = ["培根","火腿","熱狗(2條)","薯餅","肉排","散蛋","雞塊(5塊)","薯條","小雞球","檸檬雞柳(3)","薯餅塔","德腸(2條)","里肌肉排","菲力雞排","卡拉雞腿","藍帶豬排","生菜沙拉"];
-                        const zp = [15,15,20,20,30,30,40,40,40,45,45,50,50,50,50,50,50];
-                        z.forEach((n, i) => { document.write(`<tr><td>${n}</td><td style="text-align:right;"><span class="box"></span>${zp[i]}</td></tr>`); });
+                        const z = [
+                            ["培根", 15, 161], ["火腿", 15, 166], ["熱狗(2條)", 20, 177], ["薯餅", 20, 162], 
+                            ["肉排", 30, 163], ["散蛋", 30, 91], ["雞塊(5塊)", 40, 206], ["薯條", 40, 165], 
+                            ["小雞球", 40, 200], ["檸檬雞柳(3條)", 45, 215], ["薯餅塔", 45, 221], 
+                            ["德式香腸(2條)", 50, 234], ["里肌肉排", 50, 170], ["菲力雞排", 50, 247], 
+                            ["卡拉雞腿", 50, 253], ["藍帶豬排", 50, 258], ["生菜沙拉", 50, 241]
+                        ];
+                        z.forEach((n, i) => { document.write(`<tr><td>${n[0]}}]</td><td style="text-align:right;"><span class="box"></span>${n[1]} [cite: 154, 160, 171, 172, 173, 174, 175]</td></tr>`); });
                     </script>
                 </table>
             </div>
         </div>
     </div>
     <footer>
-        <span class="box"></span>餐點加起司 +10 元 | 吐司漢堡均加蛋，不加蛋折 5 元 | 餐點現點現做，請您耐心等候，謝謝您
+        <span class="box"></span>餐點加起司 +10 元 [cite: 7] | 吐司漢堡均加蛋，不加蛋折 5 元 [cite: 23] | 餐點現點現做，請您耐心等候，謝謝您 [cite: 117]
     </footer>
 </div>
 </body>
