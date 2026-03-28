@@ -2,160 +2,191 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>美天早餐 - 專業點菜單</title>
+    <title>美天早餐 - 自助菜單編輯器</title>
     <style>
-        body { font-family: "Microsoft JhengHei", sans-serif; background: #fff; margin: 0; padding: 0; color: #000; line-height: 1.1; }
-        .a4-container { width: 210mm; min-height: 297mm; padding: 5mm 8mm; margin: auto; box-sizing: border-box; display: flex; flex-direction: column; }
-        header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #000; padding-bottom: 3px; margin-bottom: 5px; }
-        h1 { margin: 0; font-size: 22px; }
-        .shop-info { font-size: 10px; text-align: right; }
-        .top-meta { display: flex; justify-content: space-between; font-size: 13px; font-weight: bold; margin-bottom: 5px; border: 1px solid #000; padding: 4px 8px; }
-        .main-grid { display: grid; grid-template-columns: 1.2fr 0.9fr 0.9fr; gap: 8px; flex-grow: 1; }
-        .section { border: 1px solid #000; margin-bottom: 5px; border-radius: 2px; overflow: hidden; }
-        .section-title { background: #000; color: #fff; font-size: 11px; padding: 3px; font-weight: bold; text-align: center; }
+        /* 列印設定 */
+        @media print {
+            .no-print { display: none !important; }
+            body { margin: 0; padding: 0; }
+            .a4-container { border: none !important; box-shadow: none !important; width: 100% !important; margin: 0 !important; padding: 5mm 10mm !important; }
+        }
+
+        body { font-family: "Microsoft JhengHei", sans-serif; background: #f0f0f0; margin: 0; padding: 20px; color: #000; }
         
-        table { width: 100%; border-collapse: collapse; font-size: 9.5px; }
-        td { border-bottom: 0.5px solid #eee; padding: 2px; }
-        .box { width: 11px; height: 11px; border: 1px solid #000; display: inline-block; vertical-align: middle; margin-right: 2px; }
+        /* 編輯工具列 */
+        .toolbar { background: #333; color: #fff; padding: 15px; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; gap: 10px; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+        .btn { padding: 8px 15px; cursor: pointer; border: none; border-radius: 4px; font-weight: bold; }
+        .btn-print { background: #27ae60; color: white; }
+        .btn-add { background: #2980b9; color: white; font-size: 12px; }
+        .btn-del { background: #e74c3c; color: white; font-size: 10px; padding: 2px 5px; }
+
+        /* A4 紙張容器 */
+        .a4-container { width: 210mm; min-height: 297mm; background: #fff; margin: 60px auto; padding: 5mm 10mm; box-sizing: border-box; border: 1px solid #ccc; box-shadow: 0 0 10px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        
+        header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 10px; }
+        .editable:hover { background: #ffffcc; outline: 1px dashed #999; }
+
+        .main-grid { display: grid; grid-template-columns: 1.2fr 0.9fr 0.9fr; gap: 10px; flex-grow: 1; }
+        .section { border: 1px solid #000; margin-bottom: 10px; position: relative; }
+        .section:hover .btn-add-row { display: block; }
+        .section-title { background: #000; color: #fff; padding: 5px; font-weight: bold; text-align: center; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 11px; }
+        td { border-bottom: 0.5px solid #eee; padding: 4px; vertical-align: middle; }
         
         /* 標籤對齊邏輯 */
-        .price-align-row { display: flex; justify-content: flex-end; }
-        .cell-unit { width: 34px; text-align: center; }
-        .label-text { font-size: 8px; font-weight: bold; display: block; margin-bottom: 1px; }
+        .price-col { display: flex; justify-content: flex-end; align-items: flex-end; gap: 2px; }
+        .price-box { width: 38px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+        .box-square { width: 12px; height: 12px; border: 1px solid #000; display: inline-block; margin-right: 2px; }
+        .label-top { font-size: 9px; font-weight: bold; margin-bottom: 2px; height: 12px; }
 
-        footer { border-top: 1.5px solid #000; padding-top: 5px; margin-top: 5px; font-size: 11px; text-align: center; font-weight: bold; }
+        .btn-add-row { position: absolute; right: -30px; top: 50%; display: none; background: #27ae60; color: white; border: none; border-radius: 50%; width: 25px; height: 25px; cursor: pointer; }
+        
+        footer { border-top: 2px solid #000; padding-top: 10px; margin-top: auto; font-size: 12px; text-align: center; font-weight: bold; }
     </style>
 </head>
 <body>
+
+<div class="toolbar no-print">
+    <strong>美天早餐編輯模式：</strong>
+    <span>直接點擊文字即可修改</span>
+    <button class="btn btn-print" onclick="window.print()">確定無誤，準備列印</button>
+    <button class="btn" onclick="location.reload()">重置 (放棄修改)</button>
+</div>
+
 <div class="a4-container">
     <header>
-        <h1>美天早餐 點菜單</h1>
-        <div class="shop-info">📞 02-2270-3918 | 📍 土城區延吉街53號</div>
+        <h1 contenteditable="true" class="editable">美天早餐 點菜單</h1>
+        <div class="shop-info" contenteditable="true" class="editable">📞 02-2270-3918 | 📍 土城區延吉街53號</div>
     </header>
+
     <div class="top-meta">
-        <div>內用桌號：_______</div><div><span class="box"></span>外帶</div><div>金額：________ 元</div>
+        <table style="border:1px solid #000; margin-bottom:10px;">
+            <tr>
+                <td contenteditable="true">內用桌號：_______</td>
+                <td contenteditable="true"><span class="box-square"></span>外帶</td>
+                <td style="text-align:right;" contenteditable="true">金額：________ 元</td>
+            </tr>
+        </table>
     </div>
+
     <div class="main-grid">
         <div class="col">
-            <div class="section">
-                <div class="section-title">吐司 / 漢堡 / 軟法 / 總匯 (均加蛋)</div>
+            <div class="section" id="sec-burger">
+                <div class="section-title" contenteditable="true">漢堡 / 吐司 / 軟法 / 總匯</div>
                 <table>
-                    <tr style="border:none;"><td style="border:none;"></td><td class="price-align-row" style="border:none;">
-                        <div class="cell-unit"><span class="label-text">吐司</span></div>
-                        <div class="cell-unit"><span class="label-text">漢堡</span></div>
-                        <div class="cell-unit"><span class="label-text">軟法</span></div>
-                        <div class="cell-unit"><span class="label-text">總匯</span></div>
-                    </td></tr>
-                    <script>
-                        const items = [
-                            ["煎蛋",30,35,50,50],["肉鬆",35,40,55,55],["火腿",35,40,55,55],["培根",35,40,55,55],["起士",35,40,55,55],
-                            ["薯餅",40,45,60,60],["肉排",40,45,60,60],["鮪魚",40,45,60,60],["香雞排",45,50,65,65],["里肌豬排",45,50,65,65],
-                            ["鮮蝦",45,50,65,65],["燻雞",45,50,65,65],["藍帶豬排",60,65,80,80],["雞柳",60,65,75,75],["明太鱈魚",70,75,90,90],
-                            ["菲力雞排",70,75,90,90],["卡拉雞腿(辣)",65,70,85,85]
-                        ];
-                        items.forEach(i => {
-                            document.write(`<tr><td>${i[0]}</td><td class="price-align-row">
-                                <div class="cell-unit"><span class="box"></span>${i[1]}</div>
-                                <div class="cell-unit"><span class="box"></span>${i[2]}</div>
-                                <div class="cell-unit"><span class="box"></span>${i[3]}</div>
-                                <div class="cell-unit"><span class="box"></span>${i[4]}</div>
-                            </td></tr>`);
-                        });
-                    </script>
+                    <tbody id="burger-body">
+                        <tr>
+                            <td contenteditable="true">煎蛋</td>
+                            <td class="price-col">
+                                <div class="price-box"><span class="label-top">吐司</span><div><span class="box-square"></span><span contenteditable="true">30</span></div></div>
+                                <div class="price-box"><span class="label-top">漢堡</span><div><span class="box-square"></span><span contenteditable="true">35</span></div></div>
+                                <div class="price-box"><span class="label-top">軟法</span><div><span class="box-square"></span><span contenteditable="true">50</span></div></div>
+                                <div class="price-box"><span class="label-top">總匯</span><div><span class="box-square"></span><span contenteditable="true">50</span></div></div>
+                                <button class="btn btn-del no-print" onclick="this.parentElement.parentElement.remove()">X</button>
+                            </td>
+                        </tr>
+                        <script>
+                            const items = ["肉鬆", "火腿", "培根", "起士", "薯餅", "肉排", "鮪魚", "香雞排", "里肌豬排"];
+                            items.forEach(name => {
+                                document.write(`<tr>
+                                    <td contenteditable="true">${name}</td>
+                                    <td class="price-col">
+                                        <div class="price-box"><div class="price-val"><span class="box-square"></span><span contenteditable="true">35</span></div></div>
+                                        <div class="price-box"><div class="price-val"><span class="box-square"></span><span contenteditable="true">40</span></div></div>
+                                        <div class="price-box"><div class="price-val"><span class="box-square"></span><span contenteditable="true">55</span></div></div>
+                                        <div class="price-box"><div class="price-val"><span class="box-square"></span><span contenteditable="true">55</span></div></div>
+                                        <button class="btn btn-del no-print" onclick="this.parentElement.parentElement.remove()">X</button>
+                                    </td>
+                                </tr>`);
+                            });
+                        </script>
+                    </tbody>
                 </table>
-            </div>
-            <div class="section">
-                <div class="section-title">果醬系列 (☐加厚果醬+5)</div>
-                <table>
-                    <tr style="border:none;"><td style="border:none;"></td><td class="price-align-row" style="border:none;">
-                        <div class="cell-unit"><span class="label-text">薄片</span></div>
-                        <div class="cell-unit"><span class="label-text">厚片</span></div>
-                        <div class="cell-unit"><span class="label-text">乳酪</span></div>
-                    </td></tr>
-                    <script>
-                        ["奶油","花生","草莓","巧克力","奶酥","藍莓","香蒜","沙拉"].forEach(n => {
-                            document.write(`<tr><td>${n}</td><td class="price-align-row">
-                                <div class="cell-unit"><span class="box"></span>15</div>
-                                <div class="cell-unit"><span class="box"></span>30</div>
-                                <div class="cell-unit"><span class="box"></span>35</div>
-                            </td></tr>`);
-                        });
-                    </script>
-                </table>
+                <button class="btn-add-row no-print" onclick="addBurgerRow()">+</button>
             </div>
         </div>
 
         <div class="col">
             <div class="section">
-                <div class="section-title">蛋餅系列 (☐醬油 ☐辣椒醬油)</div>
-                <table>
+                <div class="section-title" contenteditable="true">蛋餅系列 (☐醬油 ☐辣椒)</div>
+                <table id="egg-table">
                     <script>
-                        const eggs = [
-                            ["原味",30],["玉米",35],["九層塔",35],["起士",35],["肉鬆",35],["火腿",35],["培根",35],["熱狗",35],
-                            ["薯餅",40],["鮪魚",40],["肉排",40],["香雞排",45],["里肌豬排",45],["鮮蝦",45],["燻雞",45],
-                            ["高麗菜培根",50],["雞柳",65],["明太鱈魚",70]
-                        ];
-                        eggs.forEach(i => { document.write(`<tr><td>${i[0]}</td><td style="text-align:right;"><span class="box"></span>${i[1]}</td></tr>`); });
-                    </script>
-                </table>
-            </div>
-            <div class="section">
-                <div class="section-title">中式輕食 / 乳酪餅+蛋</div>
-                <table>
-                    <tr><td>荷包蛋(☐全 ☐半)</td><td style="text-align:right;"><span class="box"></span>15</td></tr>
-                    <tr><td>蔥蛋 / 玉米蛋 / 九層塔蛋</td><td style="text-align:right;"><span class="box"></span>25</td></tr>
-                    <tr><td>蔥抓餅 (☐加蛋)</td><td style="text-align:right;"><span class="box"></span>30 / 45</td></tr>
-                    <tr><td>煎餃(10顆) / 蘿蔔糕(1片)</td><td style="text-align:right;"><span class="box"></span>35 / 20</td></tr>
-                    <tr><td>蘿蔔糕辣炒塔香蛋</td><td style="text-align:right;"><span class="box"></span>60</td></tr>
-                    <script>
-                        [["乳酪餅煎蛋",40],["乳酪餅火腿",45],["乳酪餅肉鬆",45],["乳酪餅培根",45],["乳酪餅鮪魚",50],["乳酪餅里肌",55],["乳酪餅燻雞",55]].forEach(i => {
-                            document.write(`<tr><td>${i[0]}</td><td style="text-align:right;"><span class="box"></span>${i[1]}</td></tr>`);
+                        const eggs = ["原味", "玉米", "九層塔", "起士", "肉鬆"];
+                        eggs.forEach(name => {
+                            document.write(`<tr>
+                                <td contenteditable="true">${name}</td>
+                                <td style="text-align:right;"><span class="box-square"></span><span contenteditable="true">35</span>
+                                <button class="btn btn-del no-print" onclick="this.parentElement.parentElement.remove()">X</button></td>
+                            </tr>`);
                         });
                     </script>
                 </table>
+                <button class="btn-add-row no-print" onclick="addRow('egg-table')">+</button>
+            </div>
+            
+            <div class="section">
+                <div class="section-title" contenteditable="true">中式 / 乳酪餅</div>
+                <table id="chinese-table">
+                    <tr><td contenteditable="true">荷包蛋(全/半)</td><td style="text-align:right;"><span class="box-square"></span>15</td></tr>
+                    <tr><td contenteditable="true">乳酪餅+蛋</td><td style="text-align:right;"><span class="box-square"></span>45</td></tr>
+                </table>
+                <button class="btn-add-row no-print" onclick="addRow('chinese-table')">+</button>
             </div>
         </div>
 
         <div class="col">
             <div class="section">
-                <div class="section-title">精選套餐 (附中紅)</div>
-                <table>
-                    <tr><td>1:鐵板麵+豬排+蛋+中紅</td><td style="text-align:right;"><span class="box"></span>85</td></tr>
-                    <tr><td>2:蘿蔔1+煎餃3+蛋餅+中紅</td><td style="text-align:right;"><span class="box"></span>70</td></tr>
-                    <tr><td>3:沙拉吐+腿+狗2+蛋+中紅</td><td style="text-align:right;"><span class="box"></span>65</td></tr>
-                    <tr><td>兒:巧吐+雞塊2+薯+狗2</td><td style="text-align:right;"><span class="box"></span>65</td></tr>
+                <div class="section-title" contenteditable="true">飲料系列 (☐中 ☐大)</div>
+                <table id="drink-table">
+                    <tr>
+                        <td contenteditable="true">紅茶</td>
+                        <td class="price-col">
+                            <div class="price-box"><span class="label-top">中</span><div><span class="box-square"></span>15</div></div>
+                            <div class="price-box"><span class="label-top">大</span><div><span class="box-square"></span>20</div></div>
+                        </td>
+                    </tr>
                 </table>
+                <button class="btn-add-row no-print" onclick="addDrinkRow()">+</button>
             </div>
+            
             <div class="section">
-                <div class="section-title">飲料系列 (☐冰 ☐溫 ☐熱)</div>
-                <table>
-                    <tr style="border:none;"><td style="border:none;"></td><td class="price-align-row" style="border:none;">
-                        <div class="cell-unit"><span class="label-text">中</span></div>
-                        <div class="cell-unit"><span class="label-text">大</span></div>
-                    </td></tr>
-                    <script>
-                        [["紅茶",15,20],["奶茶",20,25],["豆漿",20,20],["糙米漿",15,15],["鮮奶茶",30,35],["咖啡",30,35],["美式咖啡",50,50]].forEach(d => {
-                            document.write(`<tr><td>${d[0]}</td><td class="price-align-row"><div class="cell-unit"><span class="box"></span>${d[1]}</div><div class="cell-unit"><span class="box"></span>${d[2]}</div></td></tr>`);
-                        });
-                    </script>
+                <div class="section-title" contenteditable="true">炸物小點</div>
+                <table id="snack-table">
+                    <tr><td contenteditable="true">雞塊 / 薯條</td><td style="text-align:right;"><span class="box-square"></span>40</td></tr>
                 </table>
-            </div>
-            <div class="section">
-                <div class="section-title">炸物小點 (☐胡椒 ☐番茄醬)</div>
-                <table>
-                    <script>
-                        [["培根/火腿",15],["熱狗/薯餅",20],["肉排/散蛋",30],["雞塊/薯條",40],["雞球/雞柳",40],["里肌/菲力/卡拉",50],["藍帶豬排/沙拉",50]].forEach(i => {
-                            document.write(`<tr><td>${i[0]}</td><td style="text-align:right;"><span class="box"></span>${i[1]}</td></tr>`);
-                        });
-                    </script>
-                </table>
+                <button class="btn-add-row no-print" onclick="addRow('snack-table')">+</button>
             </div>
         </div>
     </div>
-    <footer>
-        加起司+10 | 吐司漢堡均加蛋，不加蛋折5 | 餐點現做請耐心等候
+
+    <footer contenteditable="true">
+        加起司+10 | 吐司漢堡均加蛋，不加蛋折5 | 餐點現做請耐心等候，謝謝您
     </footer>
 </div>
+
+<script>
+    function addBurgerRow() {
+        const body = document.getElementById('burger-body');
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td contenteditable="true">新項目</td><td class="price-col">
+            <div class="price-box"><span class="box-square"></span><span contenteditable="true">0</span></div>
+            <div class="price-box"><span class="box-square"></span><span contenteditable="true">0</span></div>
+            <div class="price-box"><span class="box-square"></span><span contenteditable="true">0</span></div>
+            <div class="price-box"><span class="box-square"></span><span contenteditable="true">0</span></div>
+            <button class="btn btn-del no-print" onclick="this.parentElement.parentElement.remove()">X</button>
+        </td>`;
+        body.appendChild(tr);
+    }
+
+    function addRow(tableId) {
+        const table = document.getElementById(tableId);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td contenteditable="true">新品項</td><td style="text-align:right;"><span class="box-square"></span><span contenteditable="true">0</span>
+        <button class="btn btn-del no-print" onclick="this.parentElement.parentElement.remove()">X</button></td>`;
+        table.appendChild(tr);
+    }
+</script>
+
 </body>
 </html>
