@@ -2,24 +2,24 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>美天早餐 - 細線田字格終極版</title>
+    <title>美天早餐 - 極細田字格最終版</title>
     <style id="font-style">body { font-family: "Microsoft JhengHei", sans-serif; }</style>
     <style>
-        /* 列印專屬設定：強制顯色，消除所有多餘控制按鈕 */
         @media print {
             .no-print, .controls, .toolbar, .del-cell { display: none !important; }
             body { margin: 0; padding: 0; background: #fff; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
             .a4-container { border: none !important; box-shadow: none !important; width: 100% !important; margin: 0 !important; padding: 5mm 8mm !important; }
             .section { page-break-inside: avoid; border: 1px solid #000 !important; overflow: visible !important; resize: none !important; }
-            table { border-collapse: collapse !important; }
+            /* 確保列印時也是極細線 */
+            table { border-collapse: collapse !important; border: none !important; }
             td { border: 1px solid #000 !important; }
             table tr td:first-child { border-left: none !important; }
             table tr td:last-child { border-right: none !important; }
             table tr:last-child td { border-bottom: none !important; }
+            table tr:first-child td { border-top: none !important; }
         }
 
         body { background: #dfe6e9; margin: 0; padding: 20px; color: #000; }
-        
         .toolbar { background: #2d3436; color: #fff; padding: 12px; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; gap: 8px; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); flex-wrap: wrap; }
         .btn { padding: 8px 15px; cursor: pointer; border: none; border-radius: 4px; font-weight: bold; }
         .btn-save { background: #0984e3; color: white; }
@@ -49,7 +49,7 @@
         }
         .section-title { background: #000; color: #fff; padding: 5px; font-weight: bold; text-align: center; font-size: 14px; }
         
-        /* 灰底列 */
+        /* 灰底列：底部只有 1px 細線 */
         .price-align-header { 
             background-color: #f2f2f2; 
             border-bottom: 1px solid #000; 
@@ -65,25 +65,26 @@
         .btn-edit { font-size: 10px; padding: 2px 4px; cursor: pointer; border: 1px solid #ccc; background: #fff; border-radius: 3px; }
         .btn-bold { font-weight: 900; background: #2d3436; color: #fff; }
 
-        /* 完美細線表格 (消除重疊的雙線) */
-        table { width: 100%; border-collapse: collapse; font-size: 11px; table-layout: fixed; }
+        /* 🌟 極細田字格核心 CSS 🌟 */
+        table { width: 100%; border-collapse: collapse; font-size: 11px; table-layout: fixed; border: none; }
         td { border: 1px solid #000; padding: 5px 2px; vertical-align: middle; text-align: center; position: relative; }
-        table tr td:first-child { border-left: none; }
-        table tr td:last-child { border-right: none; }
-        table tr:last-child td { border-bottom: none; }
+        
+        /* 強制消除邊緣雙線重疊 */
+        table tr td:first-child { border-left: none !important; }
+        table tr td:last-child { border-right: none !important; }
+        table tr:last-child td { border-bottom: none !important; }
+        table tr:first-child td { border-top: none !important; }
         
         .item-name-td { width: 40%; text-align: left; padding-left: 5px; }
         .box-square { width: 12px; height: 12px; border: 1px solid #000; display: inline-block; vertical-align: middle; margin-right: 2px; }
         
         .del-x { color: red; border: none; background: none; cursor: pointer; font-weight: bold; font-size: 14px; margin-right: 2px; }
-        .del-cell { position: absolute; top: 0px; right: 0px; color: #bbb; font-size: 9px; cursor: pointer; padding: 2px; line-height: 1; }
+        .del-cell { position: absolute; top: 0px; right: 0px; color: #bbb; font-size: 9px; cursor: pointer; padding: 2px; line-height: 1; font-weight: normal; }
         .del-cell:hover { color: red; }
 
-        /* 黃色客製框：版面排版重構 */
-        .custom-box { background: #fff9c4; border: 1px solid #000; border-radius: 8px; padding: 8px; resize: both; overflow: auto; }
+        /* 黃色客製框 */
+        .custom-box { background: #fff9c4 !important; border: 1px solid #000; border-radius: 8px; padding: 8px; resize: both; overflow: auto; }
         .custom-title { color: #d32f2f; font-weight: bold; text-align: center; font-size: 12px; margin-bottom: 5px; }
-        .custom-table { width: 100%; border-collapse: collapse; font-size: 11px; border: none !important; }
-        .custom-table td { border: none !important; text-align: left; vertical-align: top; padding: 2px; }
         .custom-item { display: inline-block; margin-right: 5px; margin-bottom: 3px; white-space: nowrap; }
 
         footer { border-top: 2px solid #000; padding-top: 8px; margin-top: auto; font-size: 12px; text-align: center; font-weight: bold; }
@@ -157,27 +158,21 @@
                     <button class="btn-edit" style="color:red" onclick="this.closest('.section').remove()">✕</button>
                 </div>
                 <div class="custom-title" contenteditable="true">不加請打勾</div>
-                <table class="custom-table" contenteditable="true">
-                    <tr>
-                        <td style="width: 45px; font-weight: bold;">吐司：</td>
-                        <td>
-                            <span class="custom-item"><span class="box-square"></span>沙拉</span>
-                            <span class="custom-item"><span class="box-square"></span>小黃瓜</span>
-                            <span class="custom-item"><span class="box-square"></span>胡椒粉</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold;">漢堡：</td>
-                        <td>
-                            <span class="custom-item"><span class="box-square"></span>沙拉</span>
-                            <span class="custom-item"><span class="box-square"></span>生菜</span>
-                            <span class="custom-item"><span class="box-square"></span>洋蔥</span>
-                            <span class="custom-item"><span class="box-square"></span>番茄醬</span>
-                            <span class="custom-item"><span class="box-square"></span>番茄片</span>
-                            <span class="custom-item"><span class="box-square"></span>胡椒粉</span>
-                        </td>
-                    </tr>
-                </table>
+                <div style="font-size:11px;" contenteditable="true">
+                    <div><b>吐司：</b> 
+                        <span class="custom-item"><span class="box-square"></span>沙拉</span> 
+                        <span class="custom-item"><span class="box-square"></span>小黃瓜</span> 
+                        <span class="custom-item"><span class="box-square"></span>胡椒粉</span>
+                    </div>
+                    <div style="margin-top:5px;"><b>漢堡：</b> 
+                        <span class="custom-item"><span class="box-square"></span>沙拉</span> 
+                        <span class="custom-item"><span class="box-square"></span>生菜</span> 
+                        <span class="custom-item"><span class="box-square"></span>洋蔥</span> 
+                        <span class="custom-item"><span class="box-square"></span>番茄醬</span> 
+                        <span class="custom-item"><span class="box-square"></span>番茄片</span> 
+                        <span class="custom-item"><span class="box-square"></span>胡椒粉</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -185,13 +180,13 @@
 
 <script>
     window.onload = function() {
-        const saved = localStorage.getItem('breakfast_final_thin_v17');
+        const saved = localStorage.getItem('breakfast_thin_hairline_v18');
         if (saved) document.getElementById('menu-content').innerHTML = saved;
     };
 
     function saveMenu() {
-        localStorage.setItem('breakfast_final_thin_v17', document.getElementById('menu-content').innerHTML);
-        alert('✅ 儲存成功！顏色、大小與排版均已固定。');
+        localStorage.setItem('breakfast_thin_hairline_v18', document.getElementById('menu-content').innerHTML);
+        alert('✅ 儲存成功！極細線排版已固定。');
     }
 
     function toggleBold(btn) {
@@ -213,7 +208,6 @@
         });
     }
 
-    // 修復：顏色 100% 生效
     function pickColorAdvanced(btn, selector) {
         const target = btn.closest('.section').querySelector(selector);
         if(!target) return alert("目標已刪除。");
@@ -251,7 +245,7 @@
         const count = parseInt(table.dataset.cols || 1);
         const tr = document.createElement('tr');
         
-        let html = `<td class="item-name-td"><button class="no-print del-x" onclick="this.closest('tr').remove()">✕</button><span contenteditable="true">新項目</span></td>`;
+        let html = `<td class="item-name-td"><button class="no-print del-x" onclick="this.closest('tr').remove()">✕</button><span contenteditable="true">品項</span></td>`;
         for(let i=0; i<count; i++) {
             html += `<td><span class="no-print del-cell" onclick="this.parentElement.remove()">x</span><span class="box-square"></span><span contenteditable="true">0</span></td>`;
         }
