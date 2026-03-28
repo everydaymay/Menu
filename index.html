@@ -5,29 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>美天早餐 - 2026 專業點菜單</title>
     <style>
-        body { font-family: "Microsoft JhengHei", "PingFang TC", sans-serif; background: #fff; margin: 0; padding: 0; color: #000; line-height: 1.1; }
-        .a4-container { width: 210mm; min-height: 297mm; padding: 8mm; margin: auto; box-sizing: border-box; position: relative; }
+        body { font-family: "Microsoft JhengHei", sans-serif; background: #fff; margin: 0; padding: 0; color: #000; line-height: 1.1; }
+        .a4-container { width: 210mm; min-height: 297mm; padding: 5mm 8mm; margin: auto; box-sizing: border-box; }
         
-        header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 8px; }
-        .logo-area h1 { margin: 0; font-size: 26px; letter-spacing: 2px; }
+        header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 5px; }
+        h1 { margin: 0; font-size: 24px; letter-spacing: 1px; }
         .shop-info { font-size: 11px; text-align: right; }
 
-        .top-meta { display: flex; justify-content: space-between; font-size: 13px; font-weight: bold; margin-bottom: 8px; background: #f2f2f2; padding: 5px; border-radius: 3px; }
+        .top-meta { display: flex; justify-content: space-between; font-size: 13px; font-weight: bold; margin-bottom: 5px; border: 1px solid #000; padding: 3px 8px; background: #f9f9f9; }
         
-        .main-grid { display: grid; grid-template-columns: 1.1fr 0.9fr 1fr; gap: 8px; }
+        .main-grid { display: grid; grid-template-columns: 1.15fr 0.85fr 1fr; gap: 8px; align-items: start; }
         
-        .section { border: 1px solid #000; margin-bottom: 6px; border-radius: 3px; overflow: hidden; }
-        .section-title { background: #000; color: #fff; font-size: 12px; padding: 2px 5px; font-weight: bold; text-align: center; }
-        .sub-note { font-size: 9px; background: #f9f9f9; padding: 2px; text-align: center; border-bottom: 1px solid #ddd; color: #444; }
+        .section { border: 1px solid #000; margin-bottom: 5px; border-radius: 2px; overflow: hidden; }
+        .section-title { background: #000; color: #fff; font-size: 12px; padding: 2px; font-weight: bold; text-align: center; }
+        .sub-note { font-size: 9px; text-align: center; border-bottom: 1px solid #000; padding: 1px; background: #eee; font-weight: bold; }
 
-        table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
-        td { border-bottom: 0.5px solid #eee; padding: 2px 3px; vertical-align: middle; }
-        .box { width: 11px; height: 11px; border: 1px solid #000; display: inline-block; margin-right: 3px; vertical-align: middle; }
-        .price { font-weight: bold; text-align: right; width: 50px; white-space: nowrap; }
-        .small-text { font-size: 9px; color: #666; }
+        table { width: 100%; border-collapse: collapse; font-size: 10px; }
+        td { border-bottom: 0.5px solid #ccc; padding: 2.5px 2px; }
+        .box { width: 11px; height: 11px; border: 1px solid #000; display: inline-block; vertical-align: middle; margin-right: 2px; }
+        .price-col { text-align: right; white-space: nowrap; }
+        .item-name { font-weight: bold; font-size: 10.5px; }
 
-        .combo-item { border-bottom: 1px dashed #000; padding: 4px; font-size: 10px; }
-        .combo-name { font-weight: bold; font-size: 11px; display: flex; justify-content: space-between; }
+        /* 價格勾選組 */
+        .p-grp { display: inline-flex; align-items: center; margin-left: 4px; }
+        .p-label { font-size: 8px; color: #666; margin-right: 1px; }
 
         @media print {
             .no-print { display: none; }
@@ -38,15 +39,15 @@
 </head>
 <body>
 
-<div class="no-print" style="background:#2c3e50; color:white; padding:10px; text-align:center;">
-    <b>美天早餐 2026 更新版</b> | 預覽無誤後請按 <b>Ctrl + P</b> 列印 (邊距請選「無」)
+<div class="no-print" style="background:#d35400; color:#fff; padding:10px; text-align:center; font-weight:bold;">
+    2026 更新版：已補齊總匯價格與獨立框 | 按 <b>Ctrl + P</b> 列印 (邊距選「無」)
 </div>
 
 <div class="a4-container">
     <header>
-        <div class="logo-area">
+        <div>
             <h1>美天早餐</h1>
-            <div style="font-size:11px;">公休：星期日 (特殊假日另行公告)</div>
+            <div style="font-size:10px;">公休：星期日 (特殊假日另行公告)</div>
         </div>
         <div class="shop-info">
             📞 02-2270-3918<br>📍 新北市土城區延吉街53號
@@ -54,54 +55,46 @@
     </header>
 
     <div class="top-meta">
-        <div>內用桌號：__________</div>
+        <div>桌號：_______</div>
         <div>外帶 <span class="box"></span></div>
-        <div>總金額：__________ 元</div>
+        <div>金額：_______ 元</div>
     </div>
 
     <div class="main-grid">
         <div class="col">
             <div class="section">
-                <div class="section-title">漢堡 / 吐司 / 軟法 / 總匯</div>
+                <div class="section-title">吐司 / 漢堡 / 軟法 / 總匯</div>
                 <div class="sub-note">均加蛋。不加蛋折5元 | 起司+10元</div>
                 <table>
-                    <tr class="small-text"><td colspan="2">配菜: 沙拉/生菜/洋蔥/番茄/胡椒 (不加請勾)</td></tr>
-                    <tr><td><span class="box"></span>煎蛋</td><td class="price">30 / 35 / 50</td></tr>
-                    <tr><td><span class="box"></span>肉鬆 / 火腿</td><td class="price">35 / 40 / 55</td></tr>
-                    <tr><td><span class="box"></span>培根 / 起士 / 薯餅</td><td class="price">35 / 40 / 55</td></tr>
-                    <tr><td><span class="box"></span>肉排 / 鮪魚</td><td class="price">40 / 45 / 60</td></tr>
-                    <tr><td><span class="box"></span>香雞排 / 里肌豬排</td><td class="price">45 / 50 / 65</td></tr>
-                    <tr><td><span class="box"></span>鮮蝦 / 燻雞</td><td class="price">45 / 50 / 65</td></tr>
-                    <tr><td><span class="box"></span>藍帶豬排 / 雞柳</td><td class="price">60 / 65 / 80</td></tr>
-                    <tr><td><span class="box"></span>明太鱈魚 / 菲力雞排</td><td class="price">70 / 75 / 90</td></tr>
-                    <tr><td><span class="box"></span>卡拉雞腿 (辣味)</td><td class="price">65 / 70 / 85</td></tr>
+                    <tr style="font-size:8.5px; background:#f0f0f0;"><td colspan="2">不加請勾: 沙拉<span class="box"></span> 生菜<span class="box"></span> 洋蔥<span class="box"></span> 番茄<span class="box"></span> 胡椒<span class="box"></span></td></tr>
+                    <script>
+                        // [品名, 吐司價, 漢堡價, 總匯/軟法價]
+                        const bData = [
+                            ["煎蛋", "30", "35", "50"], ["肉鬆", "35", "40", "55"], ["火腿", "35", "40", "55"],
+                            ["培根", "35", "40", "55"], ["起士", "35", "40", "55"], ["薯餅", "40", "45", "60"],
+                            ["肉排", "40", "45", "60"], ["鮪魚", "40", "45", "60"], ["香雞排", "45", "50", "65"],
+                            ["里肌豬排", "45", "50", "65"], ["鮮蝦", "45", "50", "65"], ["燻雞", "45", "50", "65"],
+                            ["藍帶豬排", "60", "65", "80"], ["雞柳", "60", "65", "-"], ["明太鱈魚", "70", "75", "90"],
+                            ["菲力雞排", "70", "75", "90"], ["卡拉雞腿(辣)", "65", "70", "85"]
+                        ];
+                        bData.forEach(b => {
+                            document.write(`<tr>
+                                <td class="item-name">${b[0]}</td>
+                                <td class="price-col">
+                                    <span class="p-grp"><span class="box"></span>${b[1]}</span>
+                                    <span class="p-grp"><span class="box"></span>${b[2]}</span>
+                                    ${b[3] !== '-' ? `<span class="p-grp"><span class="box"></span>${b[3]}</span>` : ''}
+                                </td>
+                            </tr>`);
+                        });
+                    </script>
                 </table>
             </div>
-
             <div class="section">
-                <div class="section-title">果醬系列 (薄片/厚片/乳酪餅)</div>
-                <div class="sub-note">+5元加厚果醬</div>
+                <div class="section-title">果醬系列 (薄/厚/乳)</div>
                 <table>
-                    <tr><td><span class="box"></span>奶油 / 花生</td><td class="price">15 / 30 / 35</td></tr>
-                    <tr><td><span class="box"></span>草莓 / 巧克力</td><td class="price">15 / 30 / 35</td></tr>
-                    <tr><td><span class="box"></span>椰香奶酥 / 藍莓</td><td class="price">15 / 30 / 35</td></tr>
-                    <tr><td><span class="box"></span>香蒜 / 沙拉</td><td class="price">15 / 30 / 35</td></tr>
-                    <tr><td><span class="box"></span>雙色果醬 (限定厚片)</td><td class="price">30</td></tr>
-                </table>
-            </div>
-            
-            <div class="section">
-                <div class="section-title">炸物 / 小點</div>
-                <table>
-                    <tr><td><span class="box"></span>培根/火腿/熱狗</td><td class="price">15 / 15 / 20</td></tr>
-                    <tr><td><span class="box"></span>薯餅/里肌肉排</td><td class="price">20 / 30</td></tr>
-                    <tr><td><span class="box"></span>薯條/小雞球</td><td class="price">40 / 40</td></tr>
-                    <tr><td><span class="box"></span>麥克雞塊 (5塊)</td><td class="price">40</td></tr>
-                    <tr><td><span class="box"></span>檸檬雞柳條 (3條)</td><td class="price">45</td></tr>
-                    <tr><td><span class="box"></span>薯餅塔 (芥末/番茄)</td><td class="price">45</td></tr>
-                    <tr><td><span class="box"></span>德式香腸 (2條)</td><td class="price">50</td></tr>
-                    <tr><td><span class="box"></span>菲力/卡拉/藍帶</td><td class="price">各 50</td></tr>
-                    <tr><td><span class="box"></span>生菜沙拉</td><td class="price">50</td></tr>
+                    <tr><td>奶油/花生/草莓/巧克力</td><td class="price-col"><span class="box"></span>15 <span class="box"></span>30 <span class="box"></span>35</td></tr>
+                    <tr><td>奶酥/藍莓/香蒜/沙拉</td><td class="price-col"><span class="box"></span>15 <span class="box"></span>30 <span class="box"></span>35</td></tr>
                 </table>
             </div>
         </div>
@@ -111,104 +104,84 @@
                 <div class="section-title">蛋餅系列</div>
                 <div class="sub-note">醬油 <span class="box"></span> 辣椒醬油 <span class="box"></span></div>
                 <table>
-                    <tr><td><span class="box"></span>原味</td><td class="price">30</td></tr>
-                    <tr><td><span class="box"></span>玉米 / 九層塔 / 起士</td><td class="price">35</td></tr>
-                    <tr><td><span class="box"></span>肉鬆 / 火腿 / 培根</td><td class="price">35</td></tr>
-                    <tr><td><span class="box"></span>熱狗 / 薯餅 / 鮪魚</td><td class="price">35 / 40 / 40</td></tr>
-                    <tr><td><span class="box"></span>肉排 / 香雞排</td><td class="price">40 / 45</td></tr>
-                    <tr><td><span class="box"></span>里肌豬排 / 鮮蝦</td><td class="price">45 / 45</td></tr>
-                    <tr><td><span class="box"></span>燻雞 / 雞柳</td><td class="price">45 / 65</td></tr>
-                    <tr><td><span class="box"></span>高麗菜培根</td><td class="price">50</td></tr>
-                    <tr><td><span class="box"></span>明太鱈魚</td><td class="price">70</td></tr>
+                    <script>
+                        const eData = [
+                            ["原味", "30"], ["玉米", "35"], ["九層塔", "35"], ["起士", "35"], ["肉鬆", "35"],
+                            ["火腿", "35"], ["培根", "35"], ["熱狗", "35"], ["薯餅", "40"], ["鮪魚", "40"],
+                            ["肉排", "40"], ["香雞排", "45"], ["里肌豬排", "45"], ["鮮蝦", "45"], ["燻雞", "45"],
+                            ["高麗菜培根", "50"], ["雞柳", "65"], ["明太鱈魚", "70"]
+                        ];
+                        eData.forEach(e => {
+                            document.write(`<tr><td>${e[0]}</td><td class="price-col"><span class="box"></span>${e[1]}</td></tr>`);
+                        });
+                    </script>
                 </table>
             </div>
-
-            <div class="section">
-                <div class="section-title">乳酪餅 + 蛋</div>
-                <table>
-                    <tr><td><span class="box"></span>煎蛋 / 火腿 / 肉鬆</td><td class="price">40 / 45 / 45</td></tr>
-                    <tr><td><span class="box"></span>培根 / 鮪魚 / 里肌</td><td class="price">45 / 50 / 55</td></tr>
-                    <tr><td><span class="box"></span>燻雞</td><td class="price">55</td></tr>
-                </table>
-            </div>
-
             <div class="section">
                 <div class="section-title">中式輕食</div>
-                <div class="sub-note">醬油 <span class="box"></span> 辣椒醬油 <span class="box"></span></div>
                 <table>
-                    <tr><td><span class="box"></span>荷包蛋 (全 <span class="box"></span> 半 <span class="box"></span>)</td><td class="price">15</td></tr>
-                    <tr><td><span class="box"></span>九層塔蛋 / 玉米蛋</td><td class="price">20 / 25</td></tr>
-                    <tr><td><span class="box"></span>蔥抓餅 (加蛋 45 <span class="box"></span>)</td><td class="price">30</td></tr>
-                    <tr><td><span class="box"></span>煎餃 (10顆)</td><td class="price">35</td></tr>
-                    <tr><td><span class="box"></span>蘿蔔糕 (1片20元)</td><td class="price">35 / 50</td></tr>
-                    <tr><td><span class="box"></span>蘿蔔糕辣炒塔香蛋</td><td class="price">60</td></tr>
-                </table>
-            </div>
-
-            <div class="section">
-                <div class="section-title">鐵板麵</div>
-                <div class="sub-note">+蛋(全熟<span class="box"></span>半熟<span class="box"></span>) +中紅(冰/溫/熱)</div>
-                <table>
-                    <tr><td><span class="box"></span>蘑菇 / 黑胡椒</td><td class="price">55</td></tr>
-                    <tr><td><span class="box"></span>奶油培根 / 義式肉醬</td><td class="price">60</td></tr>
-                    <tr><td><span class="box"></span>宮保雞丁</td><td class="price">65</td></tr>
-                    <tr><td><span class="box"></span>青醬蟹肉</td><td class="price">75</td></tr>
+                    <tr><td>荷包蛋 <span style="font-size:8px;">(全<span class="box"></span>半<span class="box"></span>)</span></td><td class="price-col"><span class="box"></span>15</td></tr>
+                    <tr><td>蔥蛋 / 玉米蛋 / 九層塔蛋</td><td class="price-col"><span class="box"></span>25</td></tr>
+                    <tr><td>蔥抓餅 <span style="font-size:8px;">(加蛋<span class="box"></span>)</span></td><td class="price-col"><span class="box"></span>30 / 45</td></tr>
+                    <tr><td>煎餃(10顆) / 蘿蔔糕(1片)</td><td class="price-col"><span class="box"></span>35 / 20</td></tr>
+                    <tr><td>蘿蔔糕辣炒塔香蛋</td><td class="price-col"><span class="box"></span>60</td></tr>
                 </table>
             </div>
         </div>
 
         <div class="col">
             <div class="section">
-                <div class="section-title">套餐系列</div>
-                <div class="sub-note">內容恕不更換 | 換飲料折10元</div>
-                <div class="combo-item">
-                    <div class="combo-name">1號餐 <span class="price">$85</span></div>
-                    <div class="small-text">麵(蘑/黑)+豬排+蛋+中紅</div>
-                    <div class="small-text">蛋: 全熟<span class="box"></span> 半熟<span class="box"></span></div>
-                </div>
-                <div class="combo-item">
-                    <div class="combo-name">2號餐 <span class="price">$70</span></div>
-                    <div class="small-text">蘿蔔糕1片+煎餃3顆+原味蛋餅+中紅</div>
-                </div>
-                <div class="combo-item">
-                    <div class="combo-name">3號餐 <span class="price">$65</span></div>
-                    <div class="small-text">沙拉吐司+火腿+熱狗2條+散蛋+中紅</div>
-                </div>
-                <div class="combo-item">
-                    <div class="combo-name">兒童餐 <span class="price">$65</span></div>
-                    <div class="small-text">巧克力吐司(不烤)+雞塊2塊+薯條+熱狗2條</div>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-title">飲料系列 (中 / 大)</div>
-                <div class="sub-note">冰 <span class="box"></span> 溫 <span class="box"></span> 熱 <span class="box"></span></div>
+                <div class="section-title">精選套餐 (附中紅)</div>
+                <div class="sub-note">換飲料折10元 | 內容不更換</div>
                 <table>
-                    <tr><td><span class="box"></span>紅茶 / 無糖紅茶</td><td class="price">15 / 20</td></tr>
-                    <tr><td><span class="box"></span>奶茶 / 無糖奶茶</td><td class="price">20 / 25</td></tr>
-                    <tr><td><span class="box"></span>豆漿 / 無糖豆漿</td><td class="price">20 (單一)</td></tr>
-                    <tr><td><span class="box"></span>黑芝麻 / 杏仁漿</td><td class="price">25 / 30</td></tr>
-                    <tr><td><span class="box"></span>糙米漿 / 燕麥薏仁</td><td class="price">15 / 30</td></tr>
-                    <tr><td><span class="box"></span>鴛鴦 / 鮮奶茶</td><td class="price">30 / 35</td></tr>
-                    <tr><td><span class="box"></span>特調咖啡 / 香濃可可</td><td class="price">30 / 35</td></tr>
-                    <tr><td><span class="box"></span>美式咖啡 / 鮮奶咖啡</td><td class="price">50 / 60</td></tr>
-                    <tr><td><span class="box"></span>柳橙汁 / 檸檬紅茶</td><td class="price">25 / 30</td></tr>
-                    <tr><td><span class="box"></span>可樂 / 瓶裝牛奶</td><td class="price">25 / 30</td></tr>
-                    <tr class="small-text"><td colspan="2">* 瓶裝牛奶換杯+5元</td></tr>
+                    <tr><td>1號: 鐵板麵+豬排+蛋+中紅</td><td class="price-col"><span class="box"></span>85</td></tr>
+                    <tr><td>2號: 蘿蔔1+煎餃3+蛋餅+中紅</td><td class="price-col"><span class="box"></span>70</td></tr>
+                    <tr><td>3號: 沙拉吐+腿+狗2+蛋+中紅</td><td class="price-col"><span class="box"></span>65</td></tr>
+                    <tr><td>兒童: 巧吐+雞塊2+薯+狗2</td><td class="price-col"><span class="box"></span>65</td></tr>
                 </table>
             </div>
 
-            <div style="text-align:center; padding: 10px; border: 1px dashed #000; font-size: 11px;">
-                <b>早安！餐點現點現做</b><br>請您耐心等候，謝謝您。<br>
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://everydaymay.github.io/Menu/" style="margin-top:5px;"><br>
-                掃描查看線上菜單
+            <div class="section">
+                <div class="section-title">鐵板麵</div>
+                <table>
+                    <tr><td>蘑菇 / 黑胡椒</td><td class="price-col"><span class="box"></span>55</td></tr>
+                    <tr><td>奶油培根 / 義式肉醬</td><td class="price-col"><span class="box"></span>60</td></tr>
+                    <tr><td>宮保雞丁 / 青醬蟹肉</td><td class="price-col"><span class="box"></span>65 / 75</td></tr>
+                </table>
+            </div>
+
+            <div class="section">
+                <div class="section-title">飲料系列 (中/大)</div>
+                <div class="sub-note">冰 <span class="box"></span> 溫 <span class="box"></span> 熱 <span class="box"></span></div>
+                <table>
+                    <script>
+                        const dData = [
+                            ["紅茶 / 豆漿 / 奶茶", "15", "20"], ["無糖紅 / 無糖奶", "15", "25"],
+                            ["黑芝麻 / 杏仁", "25", "30"], ["糙米漿 / 燕麥薏仁", "15", "30"],
+                            ["鮮奶茶 / 咖啡", "30", "35"], ["美式 / 鮮奶咖", "50", "60"]
+                        ];
+                        dData.forEach(d => {
+                            document.write(`<tr><td>${d[0]}</td><td class="price-col"><span class="box"></span>${d[1]} <span class="box"></span>${d[2]}</td></tr>`);
+                        });
+                    </script>
+                </table>
+            </div>
+
+            <div class="section">
+                <div class="section-title">炸物小點</div>
+                <table>
+                    <tr><td>培根/火腿/熱狗</td><td class="price-col"><span class="box"></span>15 / 20</td></tr>
+                    <tr><td>薯餅/肉排/薯條</td><td class="price-col"><span class="box"></span>20 / 30 / 40</td></tr>
+                    <tr><td>雞塊(5)/雞球/雞柳</td><td class="price-col"><span class="box"></span>40 / 40 / 45</td></tr>
+                </table>
+            </div>
+
+            <div style="text-align:center; padding: 5px; border: 1px dashed #000; font-size: 9px; margin-top:5px;">
+                <b>餐點現點現做，請耐心等候</b><br>
+                實際價格以現場公告為準
             </div>
         </div>
     </div>
-
-    <footer style="text-align: center; font-size: 9px; margin-top: 8px; border-top: 1px solid #000; padding-top: 3px;">
-        ※ 吐司、漢堡配菜以當季蔬菜為限 [cite: 12, 117] ※ 實際價格以現場公告為準 ※
-    </footer>
 </div>
 
 </body>
