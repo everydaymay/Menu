@@ -20,10 +20,10 @@
         .box { width: 10px; height: 10px; border: 1px solid #000; display: inline-block; vertical-align: middle; margin-right: 2px; }
         
         /* 核心對齊樣式 */
-        .price-align-header { display: flex; justify-content: flex-end; padding-right: 2px; padding-bottom: 2px; border-bottom: 1px solid #ccc; }
+        .price-align-header { display: flex; justify-content: flex-end; padding-right: 2px; padding-bottom: 2px; background: #f2f2f2; border-bottom: 1px solid #ccc; }
         .price-align-row { display: flex; justify-content: flex-end; align-items: center; }
-        .cell-width { width: 32px; text-align: center; font-size: 8px; font-weight: bold; }
-        .box-cell { width: 32px; text-align: center; white-space: nowrap; }
+        .cell-width { width: 34px; text-align: center; font-size: 8.5px; font-weight: bold; }
+        .box-cell { width: 34px; text-align: center; white-space: nowrap; }
         
         footer { border-top: 1.5px solid #000; padding-top: 4px; margin-top: 4px; font-size: 10px; text-align: center; font-weight: bold; line-height: 1.3; }
     </style>
@@ -40,8 +40,8 @@
     <div class="main-grid">
         <div class="col">
             <div class="section">
-                <div class="section-title">吐司 / 漢堡 / 軟法 / 總匯</div>
                 <div class="price-align-header">
+                    <div style="flex-grow:1; text-align:left; padding-left:5px; font-size:10px;">吐司 / 漢堡 / 軟法 / 總匯</div>
                     <div class="cell-width">吐司</div><div class="cell-width">漢堡</div><div class="cell-width">軟法</div><div class="cell-width">總匯</div>
                 </div>
                 <table>
@@ -57,7 +57,10 @@
             </div>
             <div class="section">
                 <div class="section-title">果醬系列 (<span class="box"></span>加厚果醬+5元)</div>
-                <div class="price-align-header"><div class="cell-width">薄片</div><div class="cell-width">厚片</div><div class="cell-width">乳酪</div></div>
+                <div class="price-align-header">
+                    <div style="flex-grow:1;"></div>
+                    <div class="cell-width">薄片</div><div class="cell-width">厚片</div><div class="cell-width">乳酪</div>
+                </div>
                 <table>
                     <script>
                         const j = ["奶油","花生","草莓","巧克力","椰香奶酥","藍莓","香蒜","沙拉"];
@@ -106,14 +109,17 @@
                     <tr><td><span class="box"></span>1號: 鐵板麵+豬排+荷包蛋+中紅</td><td style="text-align:right;"><span class="box"></span>85</td></tr>
                     <tr><td><span class="box"></span>2號: 蘿蔔糕1片+煎餃3顆+原味蛋餅+中紅</td><td style="text-align:right;"><span class="box"></span>70</td></tr>
                     <tr><td><span class="box"></span>3號: 沙拉吐司+火腿+熱狗2條+散蛋+中紅</td><td style="text-align:right;"><span class="box"></span>65</td></tr>
-                    <tr><td><span class="box"></span>兒童: 巧吐1片+雞塊2+薯條+熱狗2</td><td style="text-align:right;"><span class="box"></span>65</td></tr>
+                    <tr><td><span class="box"></span>兒童: 巧克力吐司1片+雞塊2塊+薯條+熱狗2條</td><td style="text-align:right;"><span class="box"></span>65</td></tr>
                 </table>
             </div>
         </div>
         <div class="col">
             <div class="section">
                 <div class="section-title">飲料系列 (<span class="box"></span>冰 <span class="box"></span>溫 <span class="box"></span>熱)</div>
-                <div class="price-align-header"><div class="cell-width">中杯</div><div class="cell-width">大杯</div></div>
+                <div class="price-align-header">
+                    <div style="flex-grow:1;"></div>
+                    <div class="cell-width">中杯</div><div class="cell-width">大杯</div>
+                </div>
                 <table>
                     <script>
                         const dr = [["紅茶",15,20],["無糖紅茶",15,20],["奶茶",20,25],["無糖奶茶",20,25],["豆漿",20,20],["無糖豆漿",20,20],["糙米漿",15,15],["糙米紅",15,15],["燕麥薏仁",30,30],["杏仁漿",30,30],["黑芝麻漿",25,30],["鮮奶茶",30,35],["咖啡",30,35],["鴛鴦",30,35],["奶咖",30,35],["可可",30,35],["特調咖啡",30,35],["柳橙汁",25,30],["檸檬紅茶",25,30],["美式咖啡",50,50],["鮮奶咖啡",60,60],["可樂",25,25]];
