@@ -19,14 +19,13 @@
         td { border-bottom: 0.5px solid #eee; padding: 2.2px 2px; }
         .box { width: 12px; height: 12px; border: 1px solid #000; display: inline-block; vertical-align: middle; margin-right: 3px; }
         
-        /* 標籤對齊：確保標籤置中在勾選框上方 */
-        .price-align-header { display: flex; justify-content: flex-end; padding-right: 2px; padding-bottom: 2px; background: #f2f2f2; border-bottom: 1px solid #ccc; }
+        /* 標籤對齊邏輯：直接作為首行 */
+        .price-align-header { display: flex; justify-content: flex-end; padding-right: 2px; padding-bottom: 2px; border-bottom: 1px solid #000; background: #f2f2f2; }
         .price-align-row { display: flex; justify-content: flex-end; align-items: center; }
         .cell-width { width: 38px; text-align: center; font-size: 9px; font-weight: bold; }
         .box-cell { width: 38px; text-align: center; white-space: nowrap; }
         
         footer { border-top: 2px solid #000; padding-top: 8px; margin-top: 10px; font-size: 12px; text-align: center; font-weight: bold; line-height: 1.5; }
-        @media print { .no-print { display: none; } }
     </style>
 </head>
 <body>
@@ -47,13 +46,13 @@
                 </div>
                 <table>
                     <script>
-                        const b = [
+                        const burgers = [
                             ["煎蛋",30,35,50,50],["肉鬆",35,40,55,55],["火腿",35,40,55,55],["培根",35,40,55,55],
                             ["起士",35,40,55,55],["薯餅",40,45,60,60],["肉排",40,45,60,60],["鮪魚",40,45,60,60],
                             ["香雞排",45,50,65,65],["里肌豬排",45,50,65,65],["鮮蝦",45,50,65,65],["燻雞",45,50,65,65],
                             ["藍帶豬排",60,65,80,80],["雞柳",60,65,75,75],["明太鱈魚",70,75,90,90],["菲力雞排",70,75,90,90],["卡拉雞腿(辣)",65,70,85,85]
                         ];
-                        b.forEach(i => { 
+                        burgers.forEach(i => { 
                             document.write(`<tr><td>${i[0]}</td><td class="price-align-row">` + 
                             i.slice(1).map(p => `<div class="box-cell"><span class="box"></span>${p}</div>`).join('') + 
                             `</td></tr>`); 
@@ -120,10 +119,10 @@
             <div class="section">
                 <div class="section-title">精選套餐 (附中紅，換飲折10元)</div>
                 <table>
-                    <tr><td><span class="box"></span>1號: 鐵板麵+豬排+荷包蛋+中紅</td><td style="text-align:right;"><span class="box"></span>85</td></tr>
-                    <tr><td><span class="box"></span>2號: 蘿蔔糕1片+煎餃3顆+原味蛋餅+中紅</td><td style="text-align:right;"><span class="box"></span>70</td></tr>
-                    <tr><td><span class="box"></span>3號: 沙拉吐司+火腿+熱狗2條+散蛋+中紅</td><td style="text-align:right;"><span class="box"></span>65</td></tr>
-                    <tr><td><span class="box"></span>兒童: 巧克力吐司1片+雞塊2塊+薯條+熱狗2條</td><td style="text-align:right;"><span class="box"></span>65</td></tr>
+                    <tr><td><span class="box"></span>1號餐: 鐵板麵+豬排+荷包蛋+中紅</td><td style="text-align:right;"><span class="box"></span>85</td></tr>
+                    <tr><td><span class="box"></span>2號餐: 蘿蔔糕1片+煎餃3顆+原味蛋餅+中紅</td><td style="text-align:right;"><span class="box"></span>70</td></tr>
+                    <tr><td><span class="box"></span>3號餐: 沙拉吐司+火腿+熱狗2條+散蛋+中紅</td><td style="text-align:right;"><span class="box"></span>65</td></tr>
+                    <tr><td><span class="box"></span>兒童餐: 巧克力吐司1片+雞塊2塊+薯條+熱狗2條</td><td style="text-align:right;"><span class="box"></span>65</td></tr>
                 </table>
             </div>
             <div class="section">
