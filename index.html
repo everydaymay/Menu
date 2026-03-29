@@ -2,17 +2,15 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>美天早餐 - 完美無白邊終極版</title>
+    <title>美天早餐 - 純文字方塊極細版</title>
     <style id="font-style">body { font-family: "Microsoft JhengHei", sans-serif; }</style>
     <style>
-        /* 列印專屬設定：消除白邊與多餘按鈕 */
         @media print {
             .no-print, .controls, .toolbar, .del-cell { display: none !important; }
             body { margin: 0; padding: 0; background: #fff; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
             .a4-container { border: none !important; box-shadow: none !important; width: 100% !important; margin: 0 !important; padding: 5mm 8mm !important; }
-            
-            /* 列印時強制區塊只包覆內容，不留空白 */
-            .section { page-break-inside: avoid; border: 1px solid #000 !important; height: auto !important; resize: none !important; }
+            .section { page-break-inside: avoid; border: 1px solid #000 !important; overflow: visible !important; resize: none !important; }
+            /* 極細線設定：消除重疊 */
             table { border-collapse: collapse !important; border: none !important; }
             td { border: 1px solid #000 !important; }
             table tr td:first-child { border-left: none !important; }
@@ -35,9 +33,8 @@
         .underline { border-bottom: 1px solid #000; min-width: 45px; display: inline-block; text-align: center; margin: 0 5px; outline: none; }
 
         .main-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; flex-grow: 1; }
-        .col { display: flex; flex-direction: column; gap: 10px; }
+        .col { display: flex; flex-direction: column; gap: 10px; min-height: 100px; }
 
-        /* 區塊：改為 height: fit-content 消除底部白邊 */
         .section { 
             border: 1px solid #000; 
             margin-bottom: 10px; 
@@ -47,7 +44,7 @@
             overflow: auto; 
             resize: both; 
             min-width: 150px;
-            height: fit-content; 
+            min-height: 50px;
         }
         .section-title { background: #000; color: #fff; padding: 5px; font-weight: bold; text-align: center; font-size: 14px; }
         
@@ -66,24 +63,24 @@
         .btn-edit { font-size: 10px; padding: 2px 4px; cursor: pointer; border: 1px solid #ccc; background: #fff; border-radius: 3px; }
         .btn-bold { font-weight: 900; background: #2d3436; color: #fff; }
 
-        /* 🌟 完美緊湊的表格 🌟 */
-        table { width: 100%; border-collapse: collapse; font-size: 11px; table-layout: fixed; border: none; margin: 0; padding: 0; }
+        /* 表格極細線處理 */
+        table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; border: none; }
         td { border: 1px solid #000; padding: 5px 2px; vertical-align: middle; text-align: center; position: relative; }
-        
         table tr td:first-child { border-left: none !important; }
         table tr td:last-child { border-right: none !important; }
         table tr:last-child td { border-bottom: none !important; }
         table tr:first-child td { border-top: none !important; }
         
         .item-name-td { width: 40%; text-align: left; padding-left: 5px; }
-        .box-square { width: 12px; height: 12px; border: 1px solid #000; display: inline-block; vertical-align: middle; margin-right: 2px; }
+        
+        /* 將勾選框改為純文字符號，不再使用 CSS 畫圖 */
+        .text-square { font-size: 1.2em; vertical-align: middle; margin-right: 2px; display: inline-block; transform: translateY(-1px); }
         
         .del-x { color: red; border: none; background: none; cursor: pointer; font-weight: bold; font-size: 14px; margin-right: 2px; }
         .del-cell { position: absolute; top: 0px; right: 0px; color: #bbb; font-size: 9px; cursor: pointer; padding: 2px; line-height: 1; font-weight: normal; }
         .del-cell:hover { color: red; }
 
-        /* 黃色客製框 */
-        .custom-box { background: #fff9c4 !important; border: 1px solid #000; border-radius: 8px; padding: 8px; resize: both; overflow: auto; height: fit-content; }
+        .custom-box { background: #fff9c4 !important; border: 1px solid #000; border-radius: 8px; padding: 8px; resize: both; overflow: auto; }
         .custom-title { color: #d32f2f; font-weight: bold; text-align: center; font-size: 12px; margin-bottom: 5px; }
         .custom-item { display: inline-block; margin-right: 5px; margin-bottom: 3px; white-space: nowrap; }
 
@@ -96,6 +93,7 @@
     <button class="btn btn-add-sec" onclick="addNewSection()">➕ 新增區塊</button>
     <button class="btn btn-save" onclick="saveMenu()">💾 儲存存檔</button>
     <button class="btn btn-print" onclick="window.print()">🖨️ 直接列印</button>
+    <span style="margin-left: 10px; font-size: 12px;">(若需手動加框，請複製此符號: <b style="font-size:16px;">☐</b> )</span>
 </div>
 
 <div class="a4-container" id="menu-content">
@@ -106,7 +104,7 @@
         </div>
         <div class="header-info-bar">
             <div>內用桌號：<span class="underline" contenteditable="true"></span></div>
-            <div><span class="box-square"></span> 外帶</div>
+            <div><span class="text-square">☐</span> 外帶</div>
             <div>金額：<span class="underline" contenteditable="true"></span> 元</div>
         </div>
     </header>
@@ -137,14 +135,14 @@
                     <tbody>
                         <tr>
                             <td class="item-name-td"><button class="no-print del-x" onclick="this.closest('tr').remove()">✕</button><span contenteditable="true">範例品項</span></td>
-                            <td><span class="no-print del-cell" onclick="this.parentElement.remove()">x</span><span class="box-square"></span><span contenteditable="true">0</span></td>
-                            <td><span class="no-print del-cell" onclick="this.parentElement.remove()">x</span><span class="box-square"></span><span contenteditable="true">0</span></td>
-                            <td><span class="no-print del-cell" onclick="this.parentElement.remove()">x</span><span class="box-square"></span><span contenteditable="true">0</span></td>
-                            <td><span class="no-print del-cell" onclick="this.parentElement.remove()">x</span><span class="box-square"></span><span contenteditable="true">0</span></td>
+                            <td><span class="no-print del-cell" onclick="this.parentElement.remove()">x</span><span class="text-square">☐</span><span contenteditable="true">0</span></td>
+                            <td><span class="no-print del-cell" onclick="this.parentElement.remove()">x</span><span class="text-square">☐</span><span contenteditable="true">0</span></td>
+                            <td><span class="no-print del-cell" onclick="this.parentElement.remove()">x</span><span class="text-square">☐</span><span contenteditable="true">0</span></td>
+                            <td><span class="no-print del-cell" onclick="this.parentElement.remove()">x</span><span class="text-square">☐</span><span contenteditable="true">0</span></td>
                         </tr>
                     </tbody>
                 </table>
-                <button class="btn-edit no-print" style="width:100%; border:none; background:#f5f6fa; padding:2px; font-size:10px;" onclick="addRow(this)">➕ 新增一行</button>
+                <button class="btn-edit no-print" style="width:100%; border:none; background:#f9f9f9; padding:4px;" onclick="addRow(this)">➕ 新增一行</button>
             </div>
         </div>
         <div class="col" id="col-1"></div>
@@ -158,19 +156,19 @@
                     <button class="btn-edit" style="color:red" onclick="this.closest('.section').remove()">✕</button>
                 </div>
                 <div class="custom-title" contenteditable="true">不加請打勾</div>
-                <div style="font-size:11px;" contenteditable="true">
+                <div style="font-size:13px;" contenteditable="true">
                     <div><b>吐司：</b> 
-                        <span class="custom-item"><span class="box-square"></span>沙拉</span> 
-                        <span class="custom-item"><span class="box-square"></span>小黃瓜</span> 
-                        <span class="custom-item"><span class="box-square"></span>胡椒粉</span>
+                        <span class="custom-item"><span class="text-square">☐</span>沙拉</span> 
+                        <span class="custom-item"><span class="text-square">☐</span>小黃瓜</span> 
+                        <span class="custom-item"><span class="text-square">☐</span>胡椒粉</span>
                     </div>
                     <div style="margin-top:5px;"><b>漢堡：</b> 
-                        <span class="custom-item"><span class="box-square"></span>沙拉</span> 
-                        <span class="custom-item"><span class="box-square"></span>生菜</span> 
-                        <span class="custom-item"><span class="box-square"></span>洋蔥</span> 
-                        <span class="custom-item"><span class="box-square"></span>番茄醬</span> 
-                        <span class="custom-item"><span class="box-square"></span>番茄片</span> 
-                        <span class="custom-item"><span class="box-square"></span>胡椒粉</span>
+                        <span class="custom-item"><span class="text-square">☐</span>沙拉</span> 
+                        <span class="custom-item"><span class="text-square">☐</span>生菜</span> 
+                        <span class="custom-item"><span class="text-square"></span>洋蔥</span> 
+                        <span class="custom-item"><span class="text-square">☐</span>番茄醬</span> 
+                        <span class="custom-item"><span class="text-square">☐</span>番茄片</span> 
+                        <span class="custom-item"><span class="text-square">☐</span>胡椒粉</span>
                     </div>
                 </div>
             </div>
@@ -180,13 +178,13 @@
 
 <script>
     window.onload = function() {
-        const saved = localStorage.getItem('breakfast_final_fit_v19');
+        const saved = localStorage.getItem('breakfast_final_textsquare_v20');
         if (saved) document.getElementById('menu-content').innerHTML = saved;
     };
 
     function saveMenu() {
-        localStorage.setItem('breakfast_final_fit_v19', document.getElementById('menu-content').innerHTML);
-        alert('✅ 儲存成功！無白邊排版已固定。');
+        localStorage.setItem('breakfast_final_textsquare_v20', document.getElementById('menu-content').innerHTML);
+        alert('✅ 儲存成功！純文字方塊排版已固定。');
     }
 
     function toggleBold(btn) {
@@ -196,15 +194,10 @@
 
     function changeFontSize(btn, delta) {
         const section = btn.closest('.section');
-        const all = section.querySelectorAll('table, td, .price-align-header, .section-title, span, div, b');
+        const all = section.querySelectorAll('table, td, .price-align-header, .section-title, span:not(.text-square), div, b');
         all.forEach(el => {
             const cur = parseFloat(window.getComputedStyle(el).fontSize);
             if(cur) el.style.fontSize = (cur + delta) + 'px';
-        });
-        section.querySelectorAll('.box-square').forEach(box => {
-            const curW = parseFloat(window.getComputedStyle(box).width);
-            box.style.width = (curW + delta) + 'px';
-            box.style.height = (curW + delta) + 'px';
         });
     }
 
@@ -247,7 +240,7 @@
         
         let html = `<td class="item-name-td"><button class="no-print del-x" onclick="this.closest('tr').remove()">✕</button><span contenteditable="true">品項</span></td>`;
         for(let i=0; i<count; i++) {
-            html += `<td><span class="no-print del-cell" onclick="this.parentElement.remove()">x</span><span class="box-square"></span><span contenteditable="true">0</span></td>`;
+            html += `<td><span class="no-print del-cell" onclick="this.parentElement.remove()">x</span><span class="text-square">☐</span><span contenteditable="true">0</span></td>`;
         }
         tr.innerHTML = html;
         table.querySelector('tbody').appendChild(tr);
